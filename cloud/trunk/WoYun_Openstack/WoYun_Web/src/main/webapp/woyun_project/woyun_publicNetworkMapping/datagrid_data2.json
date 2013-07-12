@@ -1,0 +1,5 @@
+{"total":3,"rows":[
+	{"instanName":"admin","ninstanAdress":"192.168.1.22","ninstanSize":"8080","winstanAdress":"192.168.1.50","winstanSize":"3382","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>释放公网IP</a>"},
+	{"instanName":"admin","ninstanAdress":"192.168.1.33","ninstanSize":"8081","winstanAdress":"192.168.1.52","winstanSize":"3234","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>释放公网IP</a>"},
+	{"instanName":"admin","ninstanAdress":"192.168.1.42","ninstanSize":"8082","winstanAdress":"192.168.1.54","winstanSize":"2323","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>释放公网IP</a>"}
+]}

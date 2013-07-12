@@ -1,0 +1,4 @@
+{"total":2,"rows":[
+	{"imageName":"win7","totalSize":10,"isPublic":"true","containerFormat":"OVF","diskFormat":"qcow2","minRam":2048,"minDisk":10},
+	{"imageName":"win server 2008R2","totalSize":10,"isPublic":"true","containerFormat":"OVF","diskFormat":"qcow2","minRam":2048,"minDisk":10}
+]}

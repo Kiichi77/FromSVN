@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="jeecg-v3-simple"
+  id="myeclipse.1339120238748"
+  context-root="/cloud-manage"
+  j2ee-spec="6.0"
+  archive="jeecg-v3-simple.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

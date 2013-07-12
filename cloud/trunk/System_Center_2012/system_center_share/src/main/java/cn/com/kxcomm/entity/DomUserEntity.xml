@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="cn.com.kxcomm.entity.DomUserEntity">
+	<resultMap id="DomUserResultMap" class="cn.com.kxcomm.entity.DomUserEntity">
+		<result column="ID" property="id" jdbcType="BIGINT" />
+		<result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+		<result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+		<result column="NAME" property="NAME" jdbcType="VARCHAR" />
+		<result column="ENGLISH_NAME" property="englishName" jdbcType="VARCHAR" />
+		<result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="NOT_UPDATE_PWD" property="notUpdatePwd" jdbcType="smallint" />
+		<result column="NEXT_UPDATE_PWD" property="nextUpdatePwd" jdbcType="smallint" />
+		<result column="PWD_EXPIRED" property="pwdExpired" jdbcType="smallint" />
+		<result column="ACCOUNT_DISABLED" property="accountDisabled" jdbcType="smallint" />
+		<result column="CREATER" property="creater" jdbcType="VARCHAR" />
+		<result column="domain_id" property="domainId" jdbcType="bigint" />
+		<result column="group_id" property="groupId" jdbcType="bigint" />
+	</resultMap>
+
+	<select id="queryAll" resultMap="DomUserResultMap">
+		select id,user_name,password,account,email from tb_dom_user
+   </select>
+  
+</sqlMap>

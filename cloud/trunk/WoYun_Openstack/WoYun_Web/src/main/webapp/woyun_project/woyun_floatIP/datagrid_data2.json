@@ -1,0 +1,5 @@
+{"total":3,"rows":[
+	{"instanName":"1577f083-94ae-432d-a96d-4a3c24addb5f","ninstanAdress":"10.10.128.193","winstanAdress":"192.168.1.50","winstanSize":"pool1","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>释放浮动IP</a>"},
+	{"instanName":"b37d5a99-33ae-4191-971a-10ea0289e520","ninstanAdress":"10.10.128.193","winstanAdress":"192.168.1.52","winstanSize":"pool1","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>释放浮动IP</a>"},
+	{"instanName":"d0d4a2c2-ebab-4a38-b82b-fc0fe3b53925","ninstanAdress":"10.10.128.193","winstanAdress":"192.168.1.54","winstanSize":"pool2","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>释放浮动IP</a>"}
+]}

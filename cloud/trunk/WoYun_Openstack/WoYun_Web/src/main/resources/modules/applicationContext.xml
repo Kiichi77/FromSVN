@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:component-scan base-package="cn.com" />
+
+	<!-- 让server中@Autowired生效-->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<!-- 配置那些类的方法进行事务管理，当前com.sy.crm.service包中的子包， 类中所有方法需要，还需要参考tx:advice的设置 -->
+	<aop:config>
+		<aop:pointcut id="allManagerMethod"
+			expression="execution(* cn.com.kxcomm.woyun.service.*Service*.*(..))" />
+		<aop:pointcut id="allActionMethod"
+			expression="execution(public String cn.com.kxcomm.woyun.web.action..*.*()) and
+			 !execution(* get*()) and !execution(* toString()) and !execution(* ...*$$EnhancerByCGLIB*.*(..))" />
+	</aop:config>
+
+</beans>

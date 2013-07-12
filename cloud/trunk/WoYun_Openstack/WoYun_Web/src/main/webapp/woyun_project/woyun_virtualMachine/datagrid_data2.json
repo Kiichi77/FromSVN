@@ -1,0 +1,12 @@
+{"total":28,"rows":[
+	{"instanName":"<a href='#' onclick='updateInstanceshebei(1);'>FI-SW-01</a>","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>编辑运行实例</a>"},
+	{"instanName":"K9-DL-01","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('K9-DL-01');'>编辑运行实例</a>"},
+	{"instanName":"RP-SN-01","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('RP-SN-01');'>编辑运行实例</a>"},
+	{"instanName":"RP-SN-01","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('FI-SW-01');'>编辑运行实例</a>"},
+	{"instanName":"RP-LI-02","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('FI-SW-01');'>编辑运行实例</a>"},
+	{"instanName":"FL-DSH-01","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('FI-SW-01');'>编辑运行实例</a>"},
+	{"instanName":"FL-DSH-01","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('FI-SW-01');'>编辑运行实例</a>"},
+	{"instanName":"FL-DLH-02","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('FI-SW-01');'>编辑运行实例</a>"},
+	{"instanName":"FL-DLH-02","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('FI-SW-01');'>编辑运行实例</a>"},
+	{"instanName":"AV-CB-01","instanAdress":"192.168.1.50","instanSize":"2 虚拟存储器|3GB 内存|60GB 硬盘","status":"Active","work":"None","powerStatus":"Running","runTime":"60天","dosometihe":"<a href='#' onclick='updateInstanceInfo('FI-SW-01');'>编辑运行实例</a>"}
+]}

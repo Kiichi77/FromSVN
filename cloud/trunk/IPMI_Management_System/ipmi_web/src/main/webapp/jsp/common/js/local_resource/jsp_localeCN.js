@@ -1,0 +1,1 @@
+var noAccessRight = '您无权访问此页面，请返回，谢谢。';

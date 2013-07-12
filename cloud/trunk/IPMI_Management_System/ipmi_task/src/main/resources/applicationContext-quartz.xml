@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- 要调用的工作类 -->
+	<bean id="collectMachineInfoJob" class="cn.com.kxcomm.task.job.CollectMachineInfoJob"></bean>
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="collectMachineInfoTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="collectMachineInfoJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	<!-- 定义触发时间 -->
+	<bean id="collectMachineInfoTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="collectMachineInfoTask" />
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0 0/10 * * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="alertJob" class="cn.com.kxcomm.task.job.AlertJob"></bean>
+	<bean id="alertTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="alertJob" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	<bean id="alertTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="alertTask" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/30 * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="nightWorkJob" class="cn.com.kxcomm.task.job.NightWorkJob"></bean>
+	<bean id="nightWorkTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="nightWorkJob" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	<bean id="nightWorkTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="nightWorkTask" />
+		</property>
+		<property name="cronExpression">
+			<value>0 30 1 * * ?</value>
+		</property>
+	</bean>
+	
+	<bean name="printListJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="cn.com.kxcomm.task.job.PrintJobList" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="isPrint" value="true" />
+			</map>
+		</property>
+	</bean>
+	<bean id="printListTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<property name="jobDetail">
+			<ref bean="printListJob" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/3 * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean id="policyJob" class="cn.com.kxcomm.task.job.PolicyJob"></bean>
+	<bean id="policyTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="policyJob" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	<bean id="policyTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="policyTask" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/5 * * * ?</value>
+		</property>
+	</bean>
+
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean id="schedulerFactory" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="collectMachineInfoTime" />
+				<ref bean="alertTime" />
+				<ref bean="printListTrigger" />
+				<ref bean="nightWorkTime"/>
+				<ref bean="policyTime"/>
+			</list>
+		</property>
+	</bean>
+</beans>

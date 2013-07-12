@@ -1,0 +1,3 @@
+﻿$credential = Get-SCRunAsAccount -Name "Administrator" -ID "3e30b7be-302f-4de4-8eab-adf70c6a8cb6"
+$vmHost = Get-SCVMHost -ID "9bfbfb0f-1cfd-4782-9f6c-00379a4ab94e"
+Remove-SCVMHost -VMHost $vmHost -RunAsynchronously -Credential $credential

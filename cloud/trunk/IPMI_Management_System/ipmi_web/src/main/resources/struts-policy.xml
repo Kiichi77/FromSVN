@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="policy" extends="global" namespace="/policy">
+		<action name="policy" class="cn.com.kxcomm.ipmi.web.action.policy.PolicyAction">
+			<result name="list" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">pageList.*</param>
+				<param name="excludeProperties">pageList.result\[\d+\]\.tbPolicySevers.*</param>
+			</result>
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">list.*,msg</param>
+				<param name="excludeProperties">list\[\d+\]\.tbPolicySevers,list\[\d+\]\.tbServer</param>
+			</result>
+		</action>
+		<action name="policyserver" class="cn.com.kxcomm.ipmi.web.action.policy.PolicyServerAction">
+			<result name="list" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">pageList.*</param>
+				<param name="excludeProperties"></param>
+			</result>
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">msg</param>
+			</result>
+		</action>
+	</package>
+</struts>

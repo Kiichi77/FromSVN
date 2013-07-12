@@ -1,0 +1,8 @@
+user root to do:
+the path is /root/
+first:
+svn checkout svn://192.168.1.10/repos/IPMI_Management_System
+second:
+run ./statsvn.sh
+
+html to see /root/statsvn

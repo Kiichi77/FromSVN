@@ -1,0 +1,1 @@
+﻿New-SCServiceTemplate -Name "新建服务模板 1" -Release "新建"

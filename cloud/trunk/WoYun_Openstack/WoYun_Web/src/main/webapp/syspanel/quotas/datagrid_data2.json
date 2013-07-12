@@ -1,0 +1,12 @@
+{"total":10,"rows":[
+	{"quotaName":"Metadata Items","quotas":"128"},
+	{"quotaName":"Injected File Content Bytes","quotas":"10240"},
+	{"quotaName":"Volumes","quotas":"10"},
+	{"quotaName":"Gigabytes","quotas":"1000"},
+	{"quotaName":"Ram","quotas":"51200"},
+	{"quotaName":"Floating Ips","quotas":"10"},
+	{"quotaName":"Security Group Rules","quotas":"20"},
+	{"quotaName":"Instances","quotas":"10"},
+	{"quotaName":"Cores","quotas":"20"},
+	{"quotaName":"Security Groups","quotas":"10"}
+]}

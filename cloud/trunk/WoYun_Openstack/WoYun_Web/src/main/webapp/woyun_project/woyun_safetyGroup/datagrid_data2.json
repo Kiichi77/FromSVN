@@ -1,0 +1,5 @@
+{"total":3,"rows":[
+	{"instanName":"<a href='#' onclick='showWindow();'>default</a>","instanAdress":"XXXX","dosometihe":"<a href='#' onclick='showpoliceWindow();'>编辑规则</a>"},
+	{"instanName":"win-server","instanAdress":"XXXX","dosometihe":"<a href='#' onclick='updateInstanceInfo('K9-DL-01');'>编辑规则</a>"},
+	{"instanName":"win-2008server","instanAdress":"XXXX","dosometihe":"<a href='#' onclick='updateInstanceInfo('RP-SN-01');'>编辑规则</a>"}
+]}

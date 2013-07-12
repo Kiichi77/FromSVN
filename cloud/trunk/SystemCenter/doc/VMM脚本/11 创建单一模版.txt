@@ -1,0 +1,2 @@
+﻿$pattern = Get-SCServiceTemplate -All -Name "单一计算机" | where { $_.Release -eq "v1.0" }
+New-SCServiceTemplate -Name "新建服务模板 1" -Release "新建" -ServiceTemplate $pattern
