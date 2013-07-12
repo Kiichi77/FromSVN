@@ -1,0 +1,11 @@
+{                                                      
+	"total":15,                                                      
+	"rows":[                                                          
+		{"id":"001","sellOrders":"KX1009231","sellOrderName":"询价一","sellOrderNumber":"1001","menuPrice":"400W","purchaseOrderName":"400W","purchaseOrderNumber":"500W","inquiryer":"0.89","endTime":"2013-01-21 12:22:29","state":"已审核"},         
+		{"id":"002","sellOrders":"KX1009232","sellOrderName":"询价二","sellOrderNumber":"3001","menuPrice":"1000W","purchaseOrderName":"1000W","purchaseOrderNumber":"3000W","inquiryer":"0.89","endTime":"2013-01-21 12:22:29","state":"已审核"},         
+		{"id":"003","sellOrders":"KX1009233","sellOrderName":"询价三","sellOrderNumber":"3001","menuPrice":"2000W","purchaseOrderName":"10000W","purchaseOrderNumber":"30000W","inquiryer":"0.89","endTime":"2013-01-21 12:22:29","state":"已审核"},         
+		{"id":"004","sellOrders":"KX1009234","sellOrderName":"询价四","sellOrderNumber":"3001","menuPrice":"3000W","purchaseOrderName":"20000W","purchaseOrderNumber":"33000W","inquiryer":"0.89","endTime":"2013-01-21 12:22:29","state":"已审核"},         
+		{"id":"005","sellOrders":"KX1009235","sellOrderName":"询价五","sellOrderNumber":"3001","menuPrice":"4000W","purchaseOrderName":"30000W","purchaseOrderNumber":"32000W","inquiryer":"0.89","endTime":"2013-01-21 12:22:29","state":"已审核"},         
+		{"id":"006","sellOrders":"KX1009236","sellOrderName":"询价⑥","sellOrderNumber":"3001","menuPrice":"5000W","purchaseOrderName":"4000W","purchaseOrderNumber":"32998W","inquiryer":"0.89","endTime":"2013-01-21 12:22:29","state":"已审核"}       
+	]                                                          
+}       

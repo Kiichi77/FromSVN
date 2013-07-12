@@ -1,0 +1,15 @@
+{                                                      
+	"total":10,                                                      
+	"rows":[                                                          
+		{"id":"1","protactname":"超级无敌CPU","protactnum":"Rt0821","protacttype":"CPU","numbers":"11"},         
+		{"id":"2","protactname":"超级无敌服务器","protactnum":"Rt0822","protacttype":"服务器","numbers":"22"},         
+		{"id":"3","protactname":"超级无敌机架","protactnum":"Rt0823","protacttype":"机架","numbers":"33"},         
+		{"id":"4","protactname":"超级无敌机箱","protactnum":"Rt0824","protacttype":"机箱","numbers":"44"},         
+		{"id":"5","protactname":"超级无敌内存","protactnum":"Rt0852","protacttype":"内存","numbers":"55"},         
+		{"id":"6","protactname":"超级无敌存储","protactnum":"Rt0826","protacttype":"存储","numbers":"66"},          
+		{"id":"7","protactname":"超级无敌交换机","protactnum":"Rt0827","protacttype":"交换机","numbers":"77"},          
+		{"id":"8","protactname":"超级无敌RIDU卡","protactnum":"Rt0828","protacttype":"RIDU卡","numbers":"88"},          
+		{"id":"9","protactname":"超级无敌鼠标","protactnum":"Rt0829","protacttype":"鼠标","numbers":"99"},          
+		{"id":"10","protactname":"超级无敌音响","protactnum":"Rt0820","protacttype":"音响","numbers":"23"}     
+	]                                                          
+}                                                           

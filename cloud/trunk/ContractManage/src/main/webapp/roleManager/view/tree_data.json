@@ -1,0 +1,284 @@
+[{
+	"id":1,
+	"text":"管理",
+	"children":[{
+			"id":11,
+			"text":"可选配件源数据",
+			"children":[{
+				"id":111,
+				"text":"查看",
+				"checked":true
+			},{
+				"id":112,
+				"text":"修改"
+			},{
+				"id": 113,
+				"text":"添加"
+			},{
+				"id": 114,
+				"text":"删除"
+			}]
+	},{
+		"id":12,
+		"text":"项目管理",
+		"children":[{
+			"id":121,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 122,
+			"text":"修改"
+		},{
+			"id": 123,
+			"text":"添加"
+		},{
+			"id": 124,
+			"text":"删除"
+		}]
+	},{
+		"id":13,
+		"text":"合同模板管理",
+		"children":[{
+			"id":131,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 132,
+			"text":"修改"
+		},{
+			"id": 133,
+			"text":"添加"
+		},{
+			"id": 134,
+			"text":"删除"
+		}]
+	},{
+		"id":14,
+		"text":"供应商管理",
+		"children":[{
+			"id":141,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 142,
+			"text":"修改"
+		},{
+			"id": 143,
+			"text":"添加"
+		},{
+			"id": 144,
+			"text":"删除"
+		}]
+	},{
+		"id":15,
+		"text":"客户管理",
+		"children":[{
+			"id":151,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 152,
+			"text":"修改"
+		},{
+			"id": 153,
+			"text":"添加"
+		},{
+			"id": 154,
+			"text":"删除"
+		}]
+	},{
+		"id":16,
+		"text":"账户管理",
+		"children":[{
+			"id":161,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 162,
+			"text":"修改"
+		},{
+			"id": 163,
+			"text":"添加"
+		},{
+			"id": 164,
+			"text":"删除"
+		}]
+	},{
+		"id":17,
+		"text":"角色管理",
+		"children":[{
+			"id":171,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 172,
+			"text":"修改"
+		},{
+			"id": 173,
+			"text":"添加"
+		},{
+			"id": 174,
+			"text":"删除"
+		}]
+	},{
+		"id":18,
+		"text":"日志管理",
+		"children":[{
+			"id":181,
+			"text":"查看",
+			"checked":true
+		}]
+	}]
+},{
+	"id":2,
+	"text":"项目",
+	"children":[{
+		"id":"21",
+		"text":"机型配置管理",
+		"children":[{
+			"id":211,
+			"text":"查看",
+			"checked":true
+		}]
+	},{
+		"id":"22",
+		"text":"报价单",
+		"children":[{
+			"id":221,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 222,
+			"text":"修改"
+		},{
+			"id": 223,
+			"text":"添加"
+		},{
+			"id": 224,
+			"text":"删除"
+		},{
+			"id": 225,
+			"text":"审核"
+		}]
+	},{
+		"id":"23",
+		"text":"合同管理",
+		"children":[{
+			"id":231,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 232,
+			"text":"修改"
+		},{
+			"id": 233,
+			"text":"添加"
+		},{
+			"id": 234,
+			"text":"删除"
+		},{
+			"id": 235,
+			"text":"审核"
+		}]
+	},{
+		"id":"24",
+		"text":"订单管理",
+		"children":[{
+			"id":241,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 242,
+			"text":"修改"
+		},{
+			"id": 243,
+			"text":"添加"
+		},{
+			"id": 244,
+			"text":"删除"
+		},{
+			"id": 245,
+			"text":"审核"
+		}]
+	},{
+		"id":"25",
+		"text":"订货单管理",
+		"children":[{
+			"id":251,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 252,
+			"text":"修改"
+		},{
+			"id": 253,
+			"text":"添加"
+		},{
+			"id": 254,
+			"text":"删除"
+		},{
+			"id": 255,
+			"text":"审核"
+		}]
+	},{
+		"id":"26",
+		"text":"采购付款管理",
+		"children":[{
+			"id":261,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 262,
+			"text":"修改"
+		},{
+			"id": 263,
+			"text":"添加"
+		},{
+			"id": 264,
+			"text":"删除"
+		},{
+			"id": 265,
+			"text":"审核"
+		}]
+	},{
+		"id":"27",
+		"text":"售后管理",
+		"children":[{
+			"id":271,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 272,
+			"text":"修改"
+		},{
+			"id": 273,
+			"text":"添加"
+		},{
+			"id": 274,
+			"text":"删除"
+		},{
+			"id": 275,
+			"text":"审核"
+		}]
+	},{
+		"id":"28",
+		"text":"发票管理",
+		"children":[{
+			"id":281,
+			"text":"查看",
+			"checked":true
+		},{
+			"id": 282,
+			"text":"修改"
+		},{
+			"id": 283,
+			"text":"添加"
+		},{
+			"id": 284,
+			"text":"删除"
+		},{
+			"id": 285,
+			"text":"审核"
+		}]
+	}]
+}]

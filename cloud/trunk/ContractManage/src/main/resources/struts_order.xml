@@ -1,0 +1,16 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="order" extends="global" namespace="/order">
+	    <action name="order" class="cn.com.kxcomm.contractmanage.web.action.ContractOrderAction">
+	    <result name="success" type="json">
+	         <param name="root">result</param>
+	         <param name="noCache">true</param>  
+             <param name="ignoreHierarchy">false</param>  
+             <param name="contentType">text/html</param>
+	      </result>
+	    </action>
+	</package>
+</struts>

@@ -1,0 +1,28 @@
+变量名称			变量描述						变量值（例子）
+-----------------------------------------------------------------------------------------------------------
+$projectName			项目名称						2012年中国联通广东WEB网关系统扩容工程
+$projectType			项目类型						存储采购合同
+$projectNumber			项目编号						WFY12CA0B01000
+$buyer				买方							中国联合网络通信有限公司广东省分公司
+$seller				卖方							北京市康讯通讯设备有限公司
+$signContractPlace		签约地点						广东广州	 
+$signContractTime		签约时间						2012年11月
+$regeditAdress			注册地址						中国广东省广州市黄埔大道西666号
+$principal			负责人							乔建葆
+$totalPriceLoans		本合同总价贷款百分比					70%
+$PrelimiPay			初验付款贷款百分比					20%
+$finalPay			终验付款贷款百分比					10%
+$finalPayRMBlower		终验付款百分比折算人民币小写				￥75,705
+$finalPayRMBCapital		终验付款百分比折算人民币大写				柒万伍仟柒佰零伍
+$openBank			开户银行						广发银行北京分行方庄支行
+$accountName			账户名称						北京市康讯通讯设备有限公司
+$accountNumber			账户号码						137141516010015676
+
+
+----------------------------------------自动保存-----------------------------------------------------------------------------
+$PrelimipayRMBlower		初验付款百分比折算人民币小写				￥151,410
+$PrelimipayRMBCapital		初验付款百分比折算人民币大写				壹拾伍万壹仟肆佰壹拾圆整
+$perceRateRMBlower		贷款百分比折算人民币小写				￥529,936
+$perceRateRMBCaptial		贷款百分比折算人民币大写				伍拾贰万玖仟玖佰叁拾陆圆整
+$totleMoneyNum			总价格小写						￥757,051
+$totleMoneyRmb			总价格大写						柒拾伍万柒仟零伍拾壹圆整

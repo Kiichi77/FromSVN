@@ -1,0 +1,17 @@
+[{
+	"id":1,
+	"text":"DELL"
+},{
+	"id":2,
+	"text":"SONY"
+},{
+	"id":3,
+	"text":"HP",
+	"selected":true
+},{
+	"id":4,
+	"text":"亚太"
+},{
+	"id":5,
+	"text":"sk"
+}]

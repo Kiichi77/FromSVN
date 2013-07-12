@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="xunjiafukuan" name="询价付款流程" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="purchasingFillInquirySheet" name="采购填询价单"></userTask>
+    <userTask id="managerApprovalFillInquirySheet" name="审核询价单"></userTask>
+    <userTask id="purchasingContract" name="签订厂商合同"></userTask>
+    <userTask id="financialPayThe" name="财务付款"></userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="purchasingFillInquirySheet"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="purchasingFillInquirySheet" targetRef="managerApprovalFillInquirySheet"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="managerApprovalFillInquirySheet" targetRef="purchasingContract"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="purchasingContract" targetRef="financialPayThe"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="financialPayThe" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_xunjiafukuan">
+    <bpmndi:BPMNPlane bpmnElement="xunjiafukuan" id="BPMNPlane_xunjiafukuan">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="650.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="purchasingFillInquirySheet" id="BPMNShape_purchasingFillInquirySheet">
+        <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="managerApprovalFillInquirySheet" id="BPMNShape_managerApprovalFillInquirySheet">
+        <omgdc:Bounds height="55.0" width="105.0" x="260.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="purchasingContract" id="BPMNShape_purchasingContract">
+        <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="financialPayThe" id="BPMNShape_financialPayThe">
+        <omgdc:Bounds height="55.0" width="105.0" x="510.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="95.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="140.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="245.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="365.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="485.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="510.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="615.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

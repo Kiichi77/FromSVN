@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.multipart.maxSize" value="1000000000" />
+	<!-- <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/jsp/" />-->
+	<constant name="struts.custom.i18n.resources" value="exceptionMessages"></constant>
+	<constant name="struts.locale" value="en_utf-8" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.objectFactory" value="spring" />
+	<include file="struts-default.xml" />
+	<include file="struts_datasource.xml"></include>
+	<include file="struts_configmodels.xml"></include>
+	<include file="struts_contract.xml"></include>
+	<include file="struts_quotations.xml"></include>
+	<include file="struts_variable.xml"></include>
+	<include file="struts-user.xml"></include>
+	<include file="struts_activiti.xml"></include>
+    <include file="struts_customer.xml"></include>
+    <include file="struts_project.xml"></include>
+    <include file="struts_order.xml"></include>
+    <include file="struts_invoice.xml"></include>
+    <include file="struts_purchasecontract.xml"></include>
+    <include file="struts_purchaseorder.xml"></include>
+    <include file="struts_suppliers.xml"></include>
+   <!--  <include file="struts_systemlog.xml"></include> -->
+    <include file="struts_task.xml"></include>
+     <include file="preview_file.xml"></include> 
+	<package name="global" extends="json-default">
+	<interceptors>
+			<interceptor name="authenticationInterceptor"
+				class="cn.com.kxcomm.base.interceptor.AuthenticationInterceptor"></interceptor>
+				<interceptor-stack name="authenticationStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="authenticationInterceptor"></interceptor-ref>
+			</interceptor-stack>
+	</interceptors>
+	<default-interceptor-ref name="authenticationStack"></default-interceptor-ref>
+	<global-results>
+		<result name="operationException">/jsp/common/jsp/operationException.jsp</result>
+		<result name="systemException">/jsp/common/jsp/systemException.jsp</result>
+		<result type="json" />
+	</global-results>
+	<global-exception-mappings>
+		<exception-mapping result="operationException" exception="cn.com.kxcomm.base.exception.OperationException"></exception-mapping>
+		<exception-mapping result="systemException" exception="cn.com.kxcomm.base.exception.SystemException"></exception-mapping>
+	</global-exception-mappings>
+	</package>
+	<!-- 设置编码格式 -->
+ <constant name="struts.i18n.encoding" value="UTF-8"></constant>
+</struts>

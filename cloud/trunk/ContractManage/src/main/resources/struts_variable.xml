@@ -1,0 +1,26 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="variable" extends="global" namespace="/variable">
+	    <action name="templatesDocVariable" class="cn.com.kxcomm.contractmanage.web.action.ContractTemplatesDocVariableAction">
+	    <result name="success" type="json"></result>
+	      <result type="json">
+	         <param name="root">result</param>
+	         <param name="noCache">true</param>  
+             <param name="ignoreHierarchy">false</param>  
+             <param name="contentType">text/html</param>
+	      </result>
+	    </action>
+	     <action name="contractDocVariable" class="cn.com.kxcomm.contractmanage.web.action.ContractDocVariableAction">
+	    <result name="success" type="json"></result>
+	      <result type="json">
+	         <param name="root">result</param>
+	         <param name="noCache">true</param>  
+             <param name="ignoreHierarchy">false</param>  
+             <param name="contentType">text/html</param>
+	      </result>
+	    </action>
+	</package>
+</struts>

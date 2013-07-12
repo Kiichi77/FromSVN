@@ -1,0 +1,9 @@
+{                                                      
+	"total":10,                                                      
+	"rows":[                                                          
+		{"id":"001","name":"中国联合网络通信有限公司广东省分公司我晕","no":"001","totalPrice":"100W","purchaseName":"XXX","contract":"XX.DOC","supplier":"DELL","createTime":"2013-01-04","status":"未付款"},
+		{"id":"002","name":"中国联合网络通信有限公司广东省分公司沃云","no":"002","totalPrice":"100W","purchaseName":"XXX","contract":"XX.DOC","supplier":"DELL","createTime":"2013-01-04","status":"未付款"},
+		{"id":"003","name":"中国联合网络通信有限公司广东省分公司我还晕","no":"003","totalPrice":"100W","purchaseName":"XXX","contract":"XX.DOC","supplier":"DELL","createTime":"2013-01-04","status":"未付款"},
+		{"id":"004","name":"中国联合网络通信有限公司广东省分公司我继续晕","no":"004","totalPrice":"100W","purchaseName":"XXX","contract":"XX.DOC","supplier":"DELL","createTime":"2013-01-04","status":"未付款"}   
+	]                                                          
+}                                                           

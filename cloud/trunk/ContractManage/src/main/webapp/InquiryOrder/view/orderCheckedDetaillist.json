@@ -1,0 +1,11 @@
+{                                                      
+	"total":15,                                                      
+	"rows":[                                                          
+		{"id":"001","configName":"CPU","menuPrice":"300","buyPrice":"300","sellPrice":"400","maoliyun":"0.75","Supplier":"DELL","number":"20"},         
+		{"id":"002","configName":"显卡","menuPrice":"300","buyPrice":"300","sellPrice":"1000","maoliyun":"0.75","Supplier":"HP","number":"30"},         
+		{"id":"003","configName":"显示器","menuPrice":"500","buyPrice":"400","sellPrice":"1000","maoliyun":"0.85","Supplier":"IBM","number":"30"},         
+		{"id":"004","configName":"内存","menuPrice":"500","buyPrice":"500","sellPrice":"2000","maoliyun":"0.75","Supplier":"IBM","number":"30"},         
+		{"id":"005","configName":"驱动","menuPrice":"200","buyPrice":"200","sellPrice":"3000","maoliyun":"0.95","Supplier":"华为","number":"30"},         
+		{"id":"006","configName":"硬盘","menuPrice":"100","buyPrice":"100","sellPrice":"400","maoliyun":"0.95","Supplier":"DELL","number":"30"}       
+	]                                                          
+}  
