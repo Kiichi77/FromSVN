@@ -1,0 +1,11 @@
+# This is just a simple properties file that simplifies automated configuration
+# of the SQL Maps configuration file (e.g. by Ant builds or continuous
+# integration tools for different environments? etc.)
+# These values can be used in any property value in the file above (e.g. ?${driver}?)
+# Using a properties file such as this is completely optional.
+driver=com.mysql.jdbc.Driver
+# url=jdbc:sybase:Tds:192.168.16.1:2638?ServiceName=zte
+#url=jdbc:sybase:Tds:192.168.8.34:2651?ServiceName=smgbi
+url=jdbc:mysql://192.168.1.80:3306/system_center?characterEncoding=UTF-8
+username=root
+password=root

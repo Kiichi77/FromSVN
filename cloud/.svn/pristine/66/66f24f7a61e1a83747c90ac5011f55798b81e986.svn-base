@@ -1,0 +1,7 @@
+{                                                      
+	"total":10,                                                      
+	"rows":[                                                          
+		{"id":"001","name":"Dell","address":"美国","principal":"nima","phone":"18666666612","describe":"Dell"},    
+		{"id":"002","name":"惠普","address":"美国","principal":"nima","phone":"18666666612","describe":"惠普"}  
+	]                                                          
+}                                                           

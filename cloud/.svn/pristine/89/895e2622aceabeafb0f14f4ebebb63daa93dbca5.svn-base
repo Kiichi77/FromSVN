@@ -1,0 +1,5 @@
+$credential = Get-Credential
+$hostGroup = Get-SCVMHostGroup -ID "0e3ba228-a059-46be-aa41-2f5cf0f4b96e" -Name "所有主机"
+Add-SCVMHost -ComputerName "systemcenter1.system.com" -RunAsynchronously -VMHostGroup $hostGroup -Credential $credential -LiveStorageMigrationMaximum "2"
+
+Add-SCVMHost -ComputerName "systemcenter2.system.com" -RunAsynchronously -VMHostGroup $hostGroup -Credential $credential -LiveStorageMigrationMaximum "2"

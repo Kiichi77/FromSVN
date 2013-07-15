@@ -1,0 +1,5 @@
+﻿$credential = Get-Credential
+$runAsAccount = New-SCRunAsAccount -Credential $credential -Name "Administrator" -Description "VMM" -JobGroup "1147f040-1156-48a5-8ba2-bd98838d4a17"
+
+# UUID 自动生成，指 新创建的用户标识
+Write-Output $runAsAccount

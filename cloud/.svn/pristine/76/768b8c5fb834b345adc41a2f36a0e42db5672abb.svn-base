@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="saleprocess" name="采购入货销售出货" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="arrivalgoods" name="售后办理到货"></userTask>
+    <userTask id="genbuyorder" name="生成采购订单"></userTask>
+    <sequenceFlow id="flow19" sourceRef="genbuyorder" targetRef="arrivalgoods"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="startevent1" targetRef="genbuyorder"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow21" sourceRef="arrivalgoods" targetRef="endevent2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_saleprocess">
+    <bpmndi:BPMNPlane bpmnElement="saleprocess" id="BPMNPlane_saleprocess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="160.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="arrivalgoods" id="BPMNShape_arrivalgoods">
+        <omgdc:Bounds height="55.0" width="105.0" x="400.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="genbuyorder" id="BPMNShape_genbuyorder">
+        <omgdc:Bounds height="55.0" width="105.0" x="254.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="560.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="359.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="195.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="254.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="505.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

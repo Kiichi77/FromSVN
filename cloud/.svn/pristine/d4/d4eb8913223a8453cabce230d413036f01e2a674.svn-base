@@ -1,0 +1,7 @@
+gobbler.host=192.168.1.11
+gobbler.user=root
+gobbler.passwd=root.123
+mail.from=zhangjianhua@kxcomm.com.cn
+mail.smtp=mail.kxcomm.com.cn
+mail.user=zhangjianhua@kxcomm.com.cn
+mail.passwd=yuky817689

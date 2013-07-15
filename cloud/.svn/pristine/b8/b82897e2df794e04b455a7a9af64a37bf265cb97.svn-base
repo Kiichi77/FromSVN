@@ -1,0 +1,6 @@
+﻿$runAsAccount = Get-SCRunAsAccount -Name "Administrator" -ID "3e30b7be-302f-4de4-8eab-adf70c6a8cb6"
+$hostGroup = Get-SCVMHostGroup -ID "0e3ba228-a059-46be-aa41-2f5cf0f4b96e" -Name "所有主机"
+Add-SCVMHost -ComputerName "systemcenter2.system.com" -RunAsynchronously -VMHostGroup $hostGroup -Reassociate $true -Credential $runAsAccount -LiveStorageMigrationMaximum "7" -EnableLiveMigration $true -LiveMigrationMaximum "7" -MigrationAuthProtocol "CredSSP" -UseAnyMigrationSubnet $true
+Add-SCVMHost -ComputerName "systemcenter3.system.com" -RunAsynchronously -VMHostGroup $hostGroup -Reassociate $true -Credential $runAsAccount -LiveStorageMigrationMaximum "7" -EnableLiveMigration $true -LiveMigrationMaximum "7" -MigrationAuthProtocol "CredSSP" -UseAnyMigrationSubnet $true
+Add-SCVMHost -ComputerName "systemcenter1.system.com" -RunAsynchronously -VMHostGroup $hostGroup -Reassociate $true -Credential $runAsAccount -LiveStorageMigrationMaximum "7" -EnableLiveMigration $true -LiveMigrationMaximum "7" -MigrationAuthProtocol "CredSSP" -UseAnyMigrationSubnet $true
+

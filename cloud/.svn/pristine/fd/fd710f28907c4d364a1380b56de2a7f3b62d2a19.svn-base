@@ -1,0 +1,1206 @@
+#!/bin/bash
+
+VERBOSE="no"
+INTEL_MANUID="0x57 0x01 0x00"
+
+
+INTEL_MANUID_RSP=""
+for arg in ${INTEL_MANUID}; do
+	INTEL_MANUID_RSP=${arg##0x}${INTEL_MANUID_RSP}
+done
+INTEL_MANUID_RSP=0x${INTEL_MANUID_RSP}
+INTEL_MANUID_RSP_CHECK="yes"
+COMMAND_RESULT=0
+
+CMDTGT=""
+CMDOPT=""
+
+#some defalut value
+dom_id=0x00
+policy_trigger_type=0x00
+BLANK=" "
+
+
+function info {
+	if [ ${VERBOSE} = "yes" ]; then
+		echo -e "$*" >&2
+	fi
+}
+
+function ex_info {
+	if [ ${VERBOSE} = "no" ]; then
+		echo -e "$*" 
+	fi
+}
+
+function echoToErr {
+	echo -e $* >&2
+}
+
+function toGE {
+	# $1: subject for conversion
+	# $2: length
+	echo "obase=16;ibase=10; $1" | bc | awk "{ \
+		s=tolower(sprintf(\"%0$2s\", \$0)); \
+		while (s != \"\") { \
+			ge = sprintf(\"%s 0x%s\", ge, substr(s, 1, 2));
+			s = substr(s, 3);
+		} \
+		print ge}"
+}
+
+function toLE {
+	# $1: subject for conversion
+	# $2: length
+	echo "obase=16;ibase=10; $1" | bc | awk "{ \
+		s=tolower(sprintf(\"%0$2s\", \$0)); \
+		while (s != \"\") { \
+			le = sprintf(\"0x%s %s\", substr(s, 1, 2), le);
+			s = substr(s, 3);
+		} \
+		print le}"
+}
+
+function print_usage {
+	echoToErr "Usage: ipnm.sh <Options> <COMMAND> [COMMAND SPECIFIC OPTIONS]"
+	echoToErr
+	echoToErr "List of Commands:"
+	echoToErr "DetermineTool"
+	echoToErr "Discover"
+	echoToErr "GetVersion"
+	echoToErr "GetCapability"
+	echoToErr "GetDomCapability [-d DomainID][-pt PolicyTriggerType]"
+	echoToErr "GetCPUState"
+	echoToErr "GetAlertDest"
+	echoToErr "SetAlertDest_IPMB <ChannelID> <SlaveAddr> <AlertOn> <AlertStrSelector>"
+	echoToErr "SetAlertDest_LAN <ChannelID> <DestSelector> <AlertOn> <AlertStrSelector>"
+	echoToErr "GetChannelMedium [ChannelID]"
+	echoToErr "GetPolicy [-d DomainID] <PolicyID>"
+	echoToErr "SetPolicy [-d DomainID] <PolicyID> [-pt PolicyTriggerType] <PowerLimit> <CorrectionTime> [-pl PolicyTriggerLimit] <StatPeriod>"
+	echoToErr "RemovePolicy [-d DomainID] <PolicyID>"
+	echoToErr "EnablePolicy [-d DomainID] [PolicyID]"
+	echoToErr "DisablePolicy [-d DomainID] [PolicyID]"
+	echoToErr "GetAlertThreshold [-d DomainID] <PolicyID>"
+	echoToErr "SetAlertThreshold [-d DomainID] <PolicyID> <ThresholdNUM> <Threshold(1)>...<Threshold(ThresholdNUM)>"
+	echoToErr "GetPower [-d DomainID][PolicyID]"
+	echoToErr "GetInletTemp [-d DomainID][PolicyID]"
+	echoToErr "ResetStat [-d DomainID] [PolicyID]"
+	echoToErr
+	echoToErr "Options:"
+	echoToErr "  -v, --verbose verbose output"
+	echoToErr "  -H            specify remote IPMI server hostname or IP address"
+	echoToErr "  -U            specify remote IPMI server username"
+	echoToErr "  -P            specify remote IPMI server password"
+	echoToErr "  -t            specify target address of IPNM device (default:0x2c)"
+	echoToErr "  -b            specify target channel of IPNM device (default:0x06)"
+	echoToErr "  -h, --help    show this help message and exit"
+	echoToErr "  -T, --tool    sepcify local tool (eg. ipmitool, dcmitool) if you've known it"
+	exit 1
+}
+
+function COMMAND() {
+#	COMMAND="$INTEL_TOOL $CMDTGT -t $TGTADDR -b $TGTCHAN $CMDOPT raw $REQDATA"
+	raw_command="$INTEL_TOOL $CMDTGT  $TGTADDR  $TGTCHAN $CMDOPT raw $REQDATA"
+	info "\nExecute IPMI Node Manager command: $COMMAND"
+	info "$raw_command\n"
+	RSPDATA=$($raw_command)
+	if [ $? -ne 0 ]; then
+		exit 1
+	fi
+	
+	info "$RSPDATA\n"
+	if [ $INTEL_MANUID_RSP_CHECK = "yes" ]; then
+		index=1
+		manuid=""
+		for arg in ${RSPDATA}; do
+			index=$(($index+1))
+			manuid=$arg$manuid
+			if [ $index -eq 4 ]; then
+				break;
+			fi
+		done
+		if [ 0x$manuid != ${INTEL_MANUID_RSP} ]; then
+			echo "Mismatched manufactory ID: 0x$manuid"
+			exit 1
+		fi
+	fi
+}
+
+
+function GetVersion() {
+	REQDATA="0x2e 0xca $INTEL_MANUID"
+	COMMAND
+
+	index=1
+	for arg in ${RSPDATA}; do
+		index=$(($index+1))
+		case $index in
+		5)
+			if [ $(($arg)) -eq 01 ]; then
+				INTEL_NM_VER="1.0"
+			elif [ $(($arg)) -eq 02 ]; then
+				INTEL_NM_VER="1.5"
+			#version2.0 supported 
+			elif [ $(($arg)) -eq 03 ]; then 
+				INTEL_NM_VER="2.0"
+			else
+				INTEL_NM_VER="unknown"
+			fi
+			;;
+		6)
+			if [ $(($arg)) -eq 01 ]; then
+				intelnm_ipmi_intf_ver="1.0"
+			elif [ $(($arg)) -eq 02 ]; then
+				intelnm_ipmi_intf_ver="2.0"
+			else
+				intelnm_ipmi_intf_ver="unknown"
+			fi
+			;;
+		7)
+			intelnm_patch_ver=$arg
+			;;
+		8)
+			intelnm_major_fw_rev=$(($arg))
+			;;
+		9)
+			intelnm_minor_fw_rev=$(($arg))
+			;;
+		esac
+	done
+
+
+	echo "Node Manager Version:                     ($INTEL_NM_VER)"
+	echo "IPMI Interface Version:      ($intelnm_ipmi_intf_ver)"
+	echo "ME Firmware Patch Version:               ($intelnm_patch_ver)"
+	echo "ME Firmware Version:           ($intelnm_major_fw_rev.$intelnm_minor_fw_rev)"
+
+#	if [ "$INTEL_NM_VER" = "2.0" ] ; then
+#		intel_SKU=` $INTEL_TOOL channel info |grep KCS |wc -l `
+#		medium_type=`$INTEL_TOOL channel info |awk '/Medium/{print $5 " " $6}'`
+#		if [ "$medium_type" = "System Interface" ]; then
+#			[ $(($intel_SKU)) -eq 0 ] && intel_SKU="Node Manager 2.0C+" || intel_SKU="Node Manager 2.0"
+#			echo "SKU for Node Manager version 2.0:         ($intel_SKU)"	
+#		else
+#			echo "Non System Interface does not support SKU check."	
+#		fi
+#	fi
+}
+
+function PrintCapability() {
+		REQDATA="0x2e 0xc9 $INTEL_MANUID 0x0$(($dom_id)) 0x1$(($policy_trigger_type))"
+		
+		ex_info "$dom_name Capability" 
+		COMMAND 
+		index=1
+		unset max_power_limit
+		unset policy_number
+		unset min_power_limit
+		unset min_correction_time
+		unset max_correction_time
+		unset min_stat_period
+		unset max_stat_period
+
+		for arg in ${RSPDATA}; do
+			index=$(($index+1))
+			case $index in
+			5)
+				policy_number=$arg
+				;;
+			6|7)
+				max_power_limit=$arg$max_power_limit
+				;;
+			8|9)
+				min_power_limit=$arg$min_power_limit
+				;;
+			10|11|12|13)
+				min_correction_time=$arg$min_correction_time
+				;;
+			14|15|16|17)
+				max_correction_time=$arg$max_correction_time
+				;;
+			18|19)
+				min_stat_period=$arg$min_stat_period
+				;;
+			20|21)
+				max_stat_period=$arg$max_stat_period
+				;;
+			esac
+		done
+		info "$dom_name Capability" 
+		echo "Number of policies supported:    ($((0x$policy_number)))"
+		[ $(($policy_trigger_type)) -eq 0 ] && echo "Max power limit:                 ($((0x$max_power_limit)) watts)" && echo "Min power limit:                 ($((0x$min_power_limit)) watts)"
+		[ $(($policy_trigger_type)) -eq 1 ] && echo "Max temperature limit:           ($((0x$max_power_limit)) celsius)" && echo "Min temperature limit:           ($((0x$min_power_limit)) celsius)"
+		echo "Min correction time:             ($((0x$min_correction_time)) ms)"
+		echo "Max correction time:             ($((0x$max_correction_time)) ms)"
+		echo "Min statistic period:            ($((0x$min_stat_period)) s)"
+		echo -e "Max statistic period:            ($((0x$max_stat_period)) s)\n"
+}
+
+
+function GetCapability() {
+	dom_name="Platform Power"
+	PrintCapability
+	
+	case ${INTEL_NM_VER} in
+	2.0)
+		dom_name="CPU Domain Power"
+		dom_id=1
+		PrintCapability
+
+		dom_name="Memory Domain Power"
+		dom_id=2
+		PrintCapability
+		;;
+	esac
+
+	dom_name="Inlet Temperature"
+	dom_id=0
+	policy_trigger_type=1
+	PrintCapability
+}
+
+function GetDomCapability() {
+	dom_name="Platform Power"
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		-pt)
+			shift
+			policy_trigger_type=$1	
+			;;
+		esac
+		shift
+	done
+	
+	case $(($dom_id)) in
+	1)
+		dom_name="CPU Domain Power"
+		;;
+	2)
+		dom_name="Memory Domain Power"
+		;;	
+	esac
+	[ $(($policy_trigger_type)) -eq 1 ] && dom_name="Platform Inlet Temperature"
+	PrintCapability	
+}
+
+function GetPolicy() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	[ $# -ne 1 ] && print_usage
+	policy_id=$1
+	REQDATA="0x2e 0xc2 $INTEL_MANUID $dom_id $policy_id"
+	COMMAND
+
+	index=1
+	for arg in ${RSPDATA}; do
+		index=$(($index+1))
+		case $index in
+		5)
+			dom_id=$((0x$arg & 0x0f))
+			[ $((0x$arg & 0x10)) -ne 0 ] && policy_enabled=Enabled || policy_enabled=Disabled
+			[ $((0x$arg & 0x20)) -ne 0 ] && domain_enabled=Enabled || domain_enabled=Disabled
+			[ $((0x$arg & 0x40)) -ne 0 ] && global_enabled=Enabled || global_enabled=Disabled
+			[ $((0x$arg & 0x80)) -ne 0 ] && DCMI_management_API=Yes || DCMI_management_API=No
+			;;
+		6)
+			policy_trigger_type=$((0x$arg & 0x0f))
+			policy_type=$(((0x$arg & 0xf0)>>4))
+			;;
+		7)
+			policy_exception_action=$((0x$arg));
+			[ $((0x$arg & 0x01)) -ne 0 ] && policy_alarm=Enabled || policy_alarm=Disabled
+			[ $((0x$arg & 0x02)) -ne 0 ] && policy_shutdown=Enabled || policy_shutdown=Disabled
+			;;
+		8|9)
+			power_limit=$arg$power_limit
+			;;
+		10|11|12|13)
+			correction_time_limit=$arg$correction_time_limit
+			;;
+		14|15)
+			policy_trigger_limit=$arg$policy_trigger_limit
+			;;
+		16|17)
+			stat_period=$arg$stat_period
+			;;
+		esac
+	done
+	case $(($dom_id)) in
+	0)
+		dom_name="Entire Platform"
+		;;
+	1)
+		dom_name="CPU subsystem"
+		;;
+	2)
+		dom_name="Memory subsystem"
+		;;
+	esac
+	echo -e "Policy/Domain:               ${policy_id}/${dom_id}(${dom_name})\t(${global_enabled}/Global, ${domain_enabled}/Domain, ${policy_enabled}/Policy), ${DCMI_management_API}/DCMI management"
+	echo -e "Trigger Type:                ${policy_trigger_type}\t\t\t\t(0:no policy trigger; 1:inlet temperature limit policy trigger in [Celsius])"
+	echo -e "Type:                        ${policy_type}\t\t\t\t(1:power mode policy)"
+	echo -e "Exception Action:            ${policy_exception_action}\t\t\t\t(Alert:${policy_alarm}; Shutdown:${policy_shutdown})"
+	echo -e "Power Limit:                 $((0x${power_limit}))      \t\t\t(${power_limit}) Watts"
+	echo -e "Correction Time Limit:       $((0x${correction_time_limit}))\t\t\t(${correction_time_limit}) ms"
+	[ $(($policy_trigger_type)) -eq 0 ] && echo -e "Policy Trigger Limit:        $((0x${policy_trigger_limit}))      \t\t\t(${policy_trigger_limit}) Watts"
+	[ $(($policy_trigger_type)) -eq 1 ] && echo -e "Temperature Trigger Limit:   $((0x${policy_trigger_limit}))       \t\t \t(${policy_trigger_limit}) Celsius"
+	echo -e "Statistic Period:            $((0x${stat_period}))   \t\t\t(${stat_period}) s"
+}
+	
+
+function SetPolicy() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		-pt)
+			shift
+			policy_trigger_type=$1
+			;;
+		-pl)	shift
+			policy_trigger_limit=$1
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	[ $# -ne 4 ] && print_usage
+	policy_id=$1; shift	
+	power_limit=$1; shift
+	correction_time_limit=$1; shift
+	[ $((policy_trigger_type)) -eq 0 -o ${#policy_trigger_limit} -eq 0 ] && policy_trigger_limit=$power_limit
+	stat_period=$1
+	REQDATA="0x2e 0xc1 ${INTEL_MANUID} 0x1$(($dom_id)) ${policy_id} 0x1$(($policy_trigger_type)) 0x01 \
+		$(toLE ${power_limit} 4) \
+		$(toLE ${correction_time_limit} 8) \
+		$(toLE ${policy_trigger_limit} 4) \
+		$(toLE ${stat_period} 4)"
+	COMMAND
+}
+
+function RemovePolicy() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	[ $# -ne 1 ] && print_usage
+	policy_id=$1
+	REQDATA="0x2e 0xc1 ${INTEL_MANUID} 0x1$(($dom_id)) ${policy_id} 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
+	COMMAND
+}
+
+function EnablePolicy() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			mode=0x03
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	policy_id=0x00
+	if [ $# -eq 0 ]; then
+		[ ${#mode} -eq 0 ] && mode=0x01
+	elif [ $# -eq 1 ]; then
+		policy_id=$1
+		mode=0x05
+	else
+		print_usage
+	fi
+	REQDATA="0x2e 0xc0 ${INTEL_MANUID} ${mode} ${dom_id} ${policy_id}"
+
+	COMMAND
+}
+
+function DisablePolicy() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			mode=0x02
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	policy_id=0x00
+	if [ $# -eq 0 ]; then
+		[ ${#mode} -eq 0 ] && mode=0x00
+	elif [ $# -eq 1 ]; then
+		policy_id=$1
+		mode=0x04
+	else
+		print_usage
+	fi
+	REQDATA="0x2e 0xc0 ${INTEL_MANUID} ${mode} ${dom_id} ${policy_id}"
+	COMMAND
+}
+
+function GetAlertThreshold() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+			
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+        [ $# -ne 1 ] && print_usage
+	policy_id=$1
+        REQDATA="0x2e 0xc4 ${INTEL_MANUID} ${dom_id} $policy_id"
+        COMMAND
+	index=1
+	for arg in ${RSPDATA}; do
+		index=$(($index+1))
+		case $index in
+		5)
+			thld_num=$((0x$arg))	
+			;;
+		6|7)
+			alert_threshold_1=$arg$alert_threshold_1
+			;;
+		8|9)
+			alert_threshold_2=$arg$alert_threshold_2
+			;;
+		10|11)
+			alert_threshold_3=$arg$alert_threshold_3
+			;;
+		esac
+	done
+	[ $thld_num -ne 0 ] && policyOutput=$(GetPolicy "-d" "$dom_id" "$policy_id"| sed -n 'p') && info "Get Policy info"&& info "$policyOutput\n"
+	policy_trigger_type=$(echo "$policyOutput" | sed -n '/Trigger Type/p')
+	policy_trigger_type=${policy_trigger_type#*\:}
+	policy_trigger_type=${policy_trigger_type%(*}
+	[ $((0x$manuid)) -eq $(($INTEL_MANUID_RSP)) ] && echo -e "Manufacturer ID:\t\t\t\t0x$manuid"
+
+	echo -e "Number of alert thresholds:\t\t\t$thld_num"
+	if [ $thld_num -ne 0 ]; then
+	#	if [ $(($policy_trigger_type)) -eq 0 ]; then
+	#		echo "No policy Trigger"
+	#		echo "Threshold 1, Average consumption is:    ($((0x$alert_threshold_1)) Watts)"
+	#		[ $thld_num -ge 2 ] && echo "Threshold 2, Average consumption is:    ($((0x$alert_threshold_2)) Watts)"
+	#		[ $thld_num -eq 3 ] && echo "Threshold 3, Average consumption is:    ($((0x$alert_threshold_3)) Watts)"
+	#	elif [ $(($policy_trigger_type)) -eq 1 ]; then
+	#		echo "Inlet temperature trigger."
+	#		echo "Threshold 1, Temperature is:      ($((0x$alert_threshold_1)) Celsius)"
+	#		[ $thld_num -ge 2 ] && echo "Threshold 2, Temperature is:      ($((0x$alert_threshold_2)) Celsius)"
+	#		[ $thld_num -eq 3 ] && echo "Threshold 3, Temperature is:      ($((0x$alert_threshold_3)) Celsius)"
+	#	else
+	#		echo "Trigger Type NOT SUPPORTED NOW for this scripts."
+#		fi
+		echo -e "Trigger Type:\t\t\t\t\t$(($policy_trigger_type))\t\t(0:No Policy Trigger; 1:Inlet Temperature Trigger)"
+		if [ $(($policy_trigger_type)) -eq 0 ]; then
+			echo -e "Threshold 1(Average consumption) is:\t\t$((0x$alert_threshold_1))\t\t($alert_threshold_1) Watts"
+			[ $thld_num -ge 2 ] && echo -e "Threshold 2(Average consumption) is:\t\t$((0x$alert_threshold_2))\t\t($alert_threshold_2) Watts"
+			[ $thld_num -eq 3 ] && echo -e "Threshold 3(Average consumption) is:\t\t$((0x$alert_threshold_3))\t\t($alert_threshold_3) Watts"
+		else
+			echo -e "Threshold 1(Temperature) is:\t\t\t$((0x$alert_threshold_1))\t\t($alert_threshold_1) Celsius"
+			[ $thld_num -ge 2 ] && echo -e "Threshold 2(Temperature) is:\t\t\t$((0x$alert_threshold_2))\t\t($alert_threshold_2) Celsius"
+			[ $thld_num -eq 3 ] && echo -e "Threshold 3(Temperature) is:\t\t\t$((0x$alert_threshold_3))\t\t($alert_threshold_3) Celsius"
+		fi
+	fi	
+}
+
+function SetAlertThreshold() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	[ $# -lt 2 ] && print_usage
+	policy_id=$1; shift
+	thld_num=$1;shift
+	[ $(($thld_num)) -gt 3 -o $# -ne $(($thld_num)) ] && print_usage
+
+	while [ $# -ne 0 ]; do
+		thlds="${thlds} $(toLE $1 4)"; shift
+	done
+	REQDATA="0x2e 0xc3 ${INTEL_MANUID} ${dom_id} ${policy_id} ${thld_num} ${thlds}"
+	COMMAND
+}
+
+function GetAlertDest() {
+	REQDATA="0x2e 0xcf ${INTEL_MANUID}"
+	COMMAND
+	
+	index=1
+	for arg in ${RSPDATA}; do
+		index=$(($index+1))
+		case $index in
+		5)
+			channel_num=$((0x${arg:1}))
+			dest_info_op=$(((0x$arg & 0x80)>>7))
+			;;
+		6)
+			dest_selector=$((0x${arg:1}))
+			;;
+		7)
+			alert_str_selector=$((0x$arg & 0x7f))
+			alert_send_flag=$(((0x$arg & 0x80)>>7))
+			;;
+		esac
+	done
+	echo "Channel number:			$channel_num"
+	echo -e "Destination info operation: \t$dest_info_op\t\t(0:Alert Receiver is registerd; 1:Alert Receiver is not registerd)"
+#	[ $dest_info_op -eq 0 ] && echo -e "Alert Receiver is registerd\t\t($dest_info_op)" || echo -e "Alert Receiver is not registered\t\t($dest_info_op)"
+	echo -e "Destination Selector:\t\t$dest_selector\t\t(0:volatile destination; 1-15:Non-volatile destination)"
+#	[ $dest_selector -eq 0 ] && echo -e "choose volatile destination\t\t($dest_selector)" || echo "Non-volatile destination selector\t\t($dest_selector)"
+#	[ $alert_send_flag -eq 0 ] && echo "Don't send an alert string" || echo "send an alert string"
+	echo -e "Alert control:\t\t\t$alert_send_flag\t\t(0:don't send an Alert String; 1:send Alert String)"
+	[ $alert_send_flag -ne 0 ] && echo -e "Alert String selector:\t\t$alert_str_selector \t\t(0:volatile alert strin; 1-15:Non-volatile alert string selector)"	
+}
+
+function GetChannelMedium() {
+	[ $# -ne 1 -a $# -ne 0 ] && print_usage  
+	chan_id=$1
+	raw_command="$INTEL_TOOL $CMDTGT channel info $chan_id"
+	info "\nExecuting Node Manager Command : GetChannelMedium"
+	info "$raw_command\n"
+	RSPDATA=$($raw_command)
+	info "$RSPDATA\n"
+	#medium_type=`$INTEL_TOOL $CMDTGT  channel info $chan_id |awk '/Medium/{print $5 " " $6}'`
+	medium_type=$(echo "$RSPDATA" |awk '/Medium/{print $5 " " $6}')
+	echo -e "Medium type for Channel $chan_id:\t\t$medium_type"
+}
+
+function SetAlertDest_IPMB() {
+	[ $# -ne 4 ] && print_usage
+	chan_id=$1; shift
+#	medium_type=`$INTEL_TOOL $CMDTGT  channel info $chan_id |awk '/Medium/{print $5 " " $6}'`
+#	echo $medium_type
+#	if [ "$medium_type" = "IPMB (I2C)" ]; then
+	ipmb_info=$(($1<<1)); shift	
+	ipmb_info=0x$(echo "obase=16;ibase=10; $ipmb_info " | bc | awk "{ \
+			out=tolower(sprintf(\"%02s\", \$0)); \
+			print out}")
+	byte_5=$ipmb_info
+#	elif [ "$medium_type" = "802.3 LAN" ]; then
+#		dest_selector=$1; shift
+#		byte_5=$dest_selector
+#	fi
+	alert_send_flag=$(($1<<7)); shift
+	alert_str_selector=$(($1))
+	byte_6=$(($alert_send_flag | $alert_str_selector))
+	byte_6=0x$(echo "obase=16;ibase=10; $byte_6 " | bc | awk "{ \
+			out=tolower(sprintf(\"%02s\", \$0)); \
+			print out}")
+		
+	REQDATA="0x2e 0xce ${INTEL_MANUID} ${chan_id} ${byte_5} ${byte_6}"
+	COMMAND
+}
+
+function SetAlertDest_LAN() {
+	[ $# -ne 4 ] && print_usage
+	chan_id=$1; shift
+#	medium_type=`$INTEL_TOOL $CMDTGT  channel info $chan_id |awk '/Medium/{print $5 " " $6}'`
+#	echo $medium_type
+#	if [ "$medium_type" = "IPMB (I2C)" ]; then
+#		ipmb_info=$(($1<<1)); shift	
+#		ipmb_info=0x$(echo "obase=16;ibase=10; $ipmb_info " | bc | awk "{ \
+#			out=tolower(sprintf(\"%02s\", \$0)); \
+#			print out}")
+#		byte_5=$ipmb_info
+#	elif [ "$medium_type" = "802.3 LAN" ]; then
+		dest_selector=$1; shift
+		byte_5=$dest_selector
+#	fi
+		alert_send_flag=$(($1<<7)); shift
+		alert_str_selector=$(($1))
+		byte_6=$(($alert_send_flag | $alert_str_selector))
+		byte_6=0x$(echo "obase=16;ibase=10; $byte_6 " | bc | awk "{ \
+			out=tolower(sprintf(\"%02s\", \$0)); \
+			print out}")
+		
+	REQDATA="0x2e 0xce ${INTEL_MANUID} ${chan_id} ${byte_5} ${byte_6}"
+	COMMAND
+}
+
+function GetPower() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	policy_id=0x00
+	if [ $# -eq 0 ]; then
+		mode=0x01
+	elif [ $# -eq 1 ]; then
+		mode=0x11
+		policy_id=$1	
+	else
+		print_usage
+	fi
+	REQDATA="0x2e 0xc8 ${INTEL_MANUID} ${mode} ${dom_id} ${policy_id}"
+	COMMAND
+
+	index=1
+	cur=""
+	min=""
+	max=""
+	avg=""
+	timestamp=""
+	for arg in ${RSPDATA}; do
+		index=$(($index+1))
+		case $index in
+		5|6)
+			cur=$arg$cur
+			;;
+		7|8)
+			min=$arg$min
+			;;
+		9|10)
+			max=$arg$max
+			;;
+		11|12)
+			avg=$arg$avg
+			;;
+		13|14|15|16)
+			timestamp=$arg$timestamp
+			;;
+		17|18|19|20)
+			statistics_period=$arg$statistics_period
+			;;
+		esac
+	done
+	timestamp=$((0x$timestamp))
+	timestamp_desc=$(date "+%F %T" -d "@${timestamp}")
+	echo "${timestamp} (${timestamp_desc}) cur $((0x$cur)) / min $((0x$min)) / max $((0x$max)) / avg $((0x$avg)) (watt)"
+	echo -e "Statistics periold:\t\t$((0x$statistics_period))\t\t($statistics_period) seconds"
+}
+
+
+function GetInletTemp() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	policy_id=0x00
+	mode=0x02
+	set -- $raw_data
+	[ $# -ne 0 -a $# -ne 1 ] && print_usage 
+	[ $# -eq 1 ] && policy_id=$1 && mode=0x12
+	REQDATA="0x2e 0xc8 ${INTEL_MANUID} ${mode} ${dom_id} ${policy_id}"
+	COMMAND
+	index=1
+	for arg in ${RSPDATA}; do
+		index=$(($index+1))
+		case $index in
+		5|6)
+			cur=$arg$cur
+			;;
+		7|8)
+			min=$arg$min
+			;;
+		9|10)
+			max=$arg$max
+			;;
+		11|12)
+			avg=$arg$avg
+			;;
+		13|14|15|16)
+			timestamp=$arg$timestamp
+			;;
+		17|18|19|20)
+			statistics_period=$arg$statistics_period
+			;;
+		21)
+			dom_rsp_id=$((0x${arg:1}))
+			Admin_state=$((0x${arg:0:1} & 0x01))
+			operational_state=$((0x${arg:0:1} & 0x02))
+			measurements_state=$((0x${arg:0:1} & 0x04))
+			activation_state=$((0x${arg:0:1} & 0x08))
+			;;
+		esac
+	done
+	timestamp=$((0x$timestamp))
+	timestamp_desc=$(date "+%F %T" -d "@${timestamp}")
+	echo "${timestamp} (${timestamp_desc}) cur $((0x$cur)) / min $((0x$min)) / max $((0x$max)) / avg $((0x$avg)) (celsius)"
+	echo -e "Statistics periold:\t\t$((0x$statistics_period))\t\t($statistics_period) seconds"
+}
+
+function ResetStat() {
+	unset raw_data
+	while [ ! -z $1 ]; do
+		case $1 in
+		-d)
+			shift
+			dom_id=$1
+			;;
+		*)
+			raw_data=$raw_data$BLANK$1
+			;;
+		esac	
+		shift
+	done
+	set -- $raw_data
+	policy_id=0x00
+	if [ $# -eq 0 ]; then
+		mode=0x00
+	elif [ $# -eq 1 ]; then
+		mode=0x01
+		policy_id=$1
+	else
+		print_usage
+	fi
+	REQDATA="0x2e 0xc7 ${INTEL_MANUID} ${mode} ${dom_id} ${policy_id}"
+	COMMAND
+}
+
+
+function GetDeviceID() {
+	REQDATA="0x06 0x01"
+	COMMAND
+
+	index=1
+	manuid=""
+	for arg in ${RSPDATA}; do
+		index=$(($index+1))
+		case $index in
+		2)
+			dev_id=$arg
+			;;
+		3)
+			dev_rev=$((0x$arg & 0x7f))
+			SDR_exist=$((0x$arg & 0x80))
+			;;
+		4)
+			if [ $((0x$arg & 0x80)) -eq 0 ]; then
+				dev_avail="normal operation"
+			else
+				dev_avail="firmware update or self initialization in process."
+			fi
+			fw_rev_M=$((0x$arg & 0x7f))
+			;;
+		5)
+			fw_rev_m=$arg
+			;;
+		6)
+			dev_ipmi_ver=${arg:1}.${arg:0:1}
+			;;
+		7)
+			dev_support=$((0x$arg))
+			;;
+		8|9|10)
+			manuid=$arg$manuid
+			;;
+		11)
+			pid_minor_ver=$arg
+			;;
+		12)
+			pid_major_ver=$arg
+			;;
+		13)
+			fw_sps_ipmi_ver=${arg:0:1}.${arg:1}
+			dcmi_ver=${arg:0:1}
+			byte_13_spec=$arg
+			case $dcmi_ver in
+			0)
+				dcmi_ver="DCMI not implemented/enabled"
+				;;
+			1)
+				dcmi_ver="DCMI Revison 1.0"
+				;;
+			2)
+				dcmi_ver="DCMI Revision 1.5"
+				;;
+			esac
+			nm_ver=${arg:1}
+			case $nm_ver in
+			0)
+				nm_ver="NM not implementd/enables"
+				;;
+			1)
+				nm_ver="NM Revision 1.5"
+				;;
+			2)
+				nm_ver="NM Revision 2.0"
+				;;
+			esac
+			;;
+		14)
+			fw_sps_build_a=${arg:0:1}
+			fw_sps_build_b=${arg:1}
+			;;
+		15)
+			fw_sps_build_c=${arg:0:1}
+			fw_patch=${arg:1}
+			;;
+		16)
+			if [ $((0x$arg & 0x03)) -eq 0 ]; then
+				img_type="recovery image"
+			elif [ $((0x$arg & 0x03)) -eq 1 ]; then
+				img_type="operational image 1"
+			elif [ $((0x$arg & 0x03)) -eq 2 ]; then
+				img_type="operational image 2"
+			else
+				img_type="unspecified (error)"
+			fi
+			;;
+		esac
+	done
+	if [ $(($dev_id)) -eq 50 ]; then
+		echo  "Intel Management Engine Device ID (50h)"
+	elif [ $(($dev_id)) -eq 0 ]; then
+		echo "unspecified Device ID (00h)"
+	fi
+	[ $(($SDR_exsit)) -eq 0 ] && echo "NM revision, Silicon enabling and Recovery boot loader device does not provide Device SDRs" || echo "DM and DNM Firmware SKU device provides Device SDRs"
+	echo -e "Device ID(Revision):        $dev_id($dev_rev)\n"
+	echo "Device Availability:        $dev_avail"
+	echo "Device Firmware Revision:   $fw_rev_M.$fw_rev_m.${fw_sps_build_a}${fw_sps_build_b}${fw_sps_build_c}.${fw_patch}"
+	echo -e "Device IPMI Version:        $dev_ipmi_ver\n"
+	echo "Additional Device Support:"
+	[ $(($dev_support & 0x80)) -eq 0 ] && echo -e "\tNot a Chassis Device" || echo -e "\tChassis Device"
+	[ $(($dev_support & 0x40)) -eq 0 ] && echo -e "\tNot a Bridge" || echo -e "\tBridge"
+	[ $(($dev_support & 0x20)) -eq 0 ] && echo -e "\tNot a IPMB Event Generator" || echo -e "\tIPMB Event Generator"
+	[ $(($dev_support & 0x10)) -eq 0 ] && echo -e "\tNot a IPMB Event Receiver" || echo -e "\tIPMB Event Receiver"
+	[ $(($dev_support & 0x08)) -eq 0 ] && echo -e "\tFRU Inventory Device" || echo -e "\tNot a FRU Inventory Device"
+	[ $(($dev_support & 0x04)) -eq 0 ] && echo -e "\tSEL Device" || echo -e "\tNot a SEL Device"
+	[ $(($dev_support & 0x02)) -eq 0 ] && echo -e "\tSDR Repository Device" || echo -e "\tNot a SDR Repository Device"
+	[ $(($dev_support & 0x01)) -eq 0 ] && echo -e "\tNot a Sensor Device" || echo -e "\tSensor Device"
+	[ $(($dev_support)) -eq $((2#00100001)) ] && echo -e "This is a NM and Silicon enableing SKU\n"
+	[ $(($dev_support)) -eq $((2#10001111)) ] && echo -e "This is a DM and DNM SKUi\n"
+	[ $(($dev_support)) -eq $((2#00100000)) ] && echo -e "Recovery boot-loader image is loadedi\n"
+	echo "Manufacturer ID:             0x$manuid"
+	echo "Product ID Version:          $pid_major_ver.$pid_minor_ver"
+	echo "Platform Type"
+	[ $((0x$pid_minor_ver)) -eq 0 ] && echo -e "\tIntel 5500 platform\n"
+	[ $((0x$pid_minor_ver)) -eq 1 ] && echo -e "\tBromolow lplatform\n"
+	[ $((0x$pid_minor_ver)) -eq 2 ] && echo -e "\tRomley platform\n"
+	
+	echo "Auxiliary Firmware Revsion Information"
+	[ $(($dev_rev)) -eq 0 ] && echo -e "\tImplemented Version of SPS Firmware IPMI: $fw_sps_ipmi_ver\n"
+	if [ $(($dev_rev)) -eq 1 ]; then
+		if [ $byte_13_spec -eq 0 ]; then 
+			echo -e "\tSilicon Enabling\n"		
+		else
+			echo -e "\tImplemented DCMI version:          $dcmi_ver\n\tImplemented Node Manager version:  $nm_ver\n"
+		fi
+	fi
+	echo "Image Type:                  $img_type"
+}
+
+function Discover() {
+	SDRDUMP=./sdr.dump
+	rm -f $SDRDUMP
+
+	COMMAND="$INTEL_TOOL $CMDTGT sdr dump $SDRDUMP"
+	info "\nExecute IPMI Node Manager command: Discover"
+	info "${COMMAND}\n"
+	$COMMAND >&/dev/null
+	[ ! -e ${SDRDUMP} ] && exit
+
+	#SIZE=$(hexdump -e '300/1 " %02x" ""' ${SDRDUMP} | wc -w)
+	SIZE=$(od -An -tx1 -w300 ${SDRDUMP} | wc -w)
+	OFFSET=0
+	while true; do
+		#LEN=$(hexdump -s$((OFFSET+4)) -n1 -e '1 "%d " "\n"' ${SDRDUMP})
+		LEN=$(od -An -d -j$((OFFSET+4)) -N1 ${SDRDUMP})
+		LEN=$((5+LEN))
+
+		#hexdump -s$OFFSET -n$LEN -e '300/1 "%02x " "\n"' ${SDRDUMP}
+		od -An -tx1 -w300 -j$OFFSET -N$LEN ${SDRDUMP}
+	
+		OFFSET=$((OFFSET+LEN))
+		[ $OFFSET -ge $SIZE ] && break
+	done | awk '
+{
+	if (($4=="c0") && ($9=="0d")) {
+		if (($6=="57") && ($7="01") && ($8=="00")) {
+			tgtaddr=strtonum("0x"$11);
+			tgtchan=strtonum("0x"$12) / 16;
+			printf("Node Manager capability supported: target address(0x%02x), target channel(0x%02d).\n", tgtaddr, tgtchan);
+		}
+	}
+}'
+	rm -f ${SDRDUMP}
+}
+
+function DetermineTool() {
+	REQDATA="0x06 0x01"
+	raw_command="ipmitool $CMDTGT $CMDOPT raw $REQDATA"
+	info "Excuting Determine Tool command: "
+	info "Try IPMI tool..."
+	info "$raw_command\n"
+	RSPDATA=$($raw_command)
+	if [ $? -eq 0  ]; then
+		info "$RSPDATA\n"
+		INTEL_TOOL="ipmitool"
+	else
+		info "$RSPDATA\n"
+		info "Try DCMI tool..."
+		REQDATA="0x2c 0x01 0xdc 0x01"
+		raw_command="dcmitool $CMDTGT $CMDOPT raw $REQDATA"
+		info "$raw_command\n"
+		RSPDATA=$($raw_command)
+		if [ $? -eq 0 ]; then
+			info "$RSPDATA\n"
+			INTEL_TOOL="dcmitool"	
+		else
+			info "$RSPDATA\n"
+			INTEL_TOOL="not supported"
+			echo "$INTEL_TOOL. Please check your Platform Configuration."
+			exit 1
+		fi
+	fi
+	echo "Choose $INTEL_TOOL"
+}
+		
+
+
+function GetCPUState() {
+	REQDATA="0x2e 0xd4 $INTEL_MANUID 0x00"
+        COMMAND
+        index=1
+        for arg in ${RSPDATA}; do
+                index=$(($index+1))
+                case $index in
+                5)
+                        p_state_number=$arg
+                        ;;
+                6)
+                        t_state_number=$arg
+                        ;;
+                esac
+        done
+        if [ $INTEL_NM_VER = "2.0" ]; then
+                REQDATA="0x2e 0xd4 $INTEL_MANUID 0x10"
+                COMMAND
+
+                index=1
+                for arg in ${RSPDATA}; do
+                        index=$(($index+1))
+                        case $index in
+                        5|6)
+                                logical_processor_number=$arg$logical_processor_number
+                                ;;
+                        esac
+                done
+        fi
+        echo "Number of P-States available:     ($((0x$p_state_number)))"
+        echo "Number of T-States available:     ($((0x$t_state_number)))"
+        [ $INTEL_NM_VER = "2.0" ] && echo "Number of logical processor:      ($((0x$logical_processor_number)))"
+}	
+
+
+# main flow
+# parse command line parameters
+while [ ! -z $1 ]; do
+	case $1 in
+	-v|--verbose)
+		VERBOSE="yes"
+		CMDOPT="${CMDOPT} $1"
+		;;
+	-H|-U|-P)
+		CMDTGT="${CMDTGT} $1 $2"
+		shift
+		;;
+	-t)
+		TGTADDR="$1 $2"
+		shift
+		;;
+	-b)
+		TGTCHAN="$1 $2"
+		shift
+		;;
+	-T|--tool)
+		shift
+		INTEL_TOOL="$1"
+		;;
+	version)
+		echo "IPMI Node Manager Tool Version: 1.0"
+		exit
+		;;
+	Discover)
+		COMMAND="$1"
+		break
+		;;
+	GetVersion|GetCapability)
+		COMMAND=$1; shift
+		ARGS=$*
+		break
+		;;
+	GetPolicy|SetPolicy|RemovePolicy|EnablePolicy|DisablePolicy)
+		COMMAND=$1; shift
+		ARGS=$*
+		break
+		;;
+	GetAlertThreshold|SetAlertThreshold|GetAlertDest|SetAlertDest_IPMB|SetAlertDest_LAN)
+		COMMAND=$1; shift
+		ARGS=$*
+		break
+		;;
+	GetPower|GetInletTemp|GetTriggerStatistics|ResetStat)
+		COMMAND=$1; shift
+		ARGS=$*
+		break
+		;;
+	GetDeviceID)
+		COMMAND=$1
+		INTEL_MANUID_RSP_CHECK="no"
+		;;
+	ColdReset)
+		COMMAND=$1
+		REQDATA="0x06 0x02"
+		INTEL_MANUID_RSP_CHECK="no"
+		;;
+	GetSelfTestResults)
+		COMMAND=$1
+		REQDATA="0x06 0x04"
+		INTEL_MANUID_RSP_CHECK="no"
+		;;
+	DetermineTool)
+		COMMAND=$1
+		INTEL_MANUID_RSP_CHECK="no"
+		break
+		;;
+	GetCPUState)
+		COMMAND=$1; 
+		break
+		;;
+	GetChannelMedium)
+		COMMAND=$1;shift
+		ARGS=$*
+		;;
+	GetDomCapability)
+		COMMAND=$1;shift
+		ARGS=$*
+		break
+		;;
+	-h|--help|*)
+		print_usage
+		;;
+	esac
+	shift
+done
+if [ ${#COMMAND} -eq 0 ]; then
+	print_usage
+	exit
+fi
+
+if [ ${#CMDTGT} -ne 0 ]; then
+	# enforce "lanplus" interface for security for accessing BMC through network
+	CMDTGT="-I lanplus ${CMDTGT}"
+fi
+
+[ ${#INTEL_TOOL} -eq 0 ] && DetermineTool
+
+case ${COMMAND} in
+# workaround for inlet temperature monitoring not supported by IPNM 1.5
+#GetInletTemp)
+#	COMMAND="${INTEL_TOOL} ${CMDTGT} sdr type temperature"
+#	info "Execute IPMI command:"
+#	info "${COMMAND}\n"
+#	$COMMAND | awk '
+#{
+#	print $0;
+#}'
+#	;;
+Discover)
+	[ "$INTEL_TOOL" = "ipmitool" ] && $COMMAND || echo "$INTEL_TOOL does not support discover"
+	;;
+DetermineTool)
+#	$COMMAND already done before
+	;;
+#GetDeviceID)
+#	DetermineTool	
+#	$COMMAND 
+#	;;
+*)
+	if [ "$INTEL_TOOL" = "ipmitool" ];then
+		if [ ${#TGTADDR} -eq 0 ] || [ ${#TGTCHAN} -eq 0 ]; then
+			OUTPUT=$(Discover)
+			TGTADDR=${OUTPUT#*(}
+			TGTADDR=${TGTADDR%%)*}
+			TGTCHAN=${OUTPUT##*(}
+			TGTCHAN=${TGTCHAN%%)*}
+			info "IPNM entity discovered: target address ($TGTADDR), target channel($TGTCHAN)."
+			TGTADDR="-t $TGTADDR"
+			TGTCHAN="-b $TGTCHAN"
+		fi
+	fi
+	case ${COMMAND} in
+	GetCPUState|GetCapability)
+		GetVersion >/dev/null
+		;;
+	esac
+	$COMMAND $ARGS
+	;;
+esac

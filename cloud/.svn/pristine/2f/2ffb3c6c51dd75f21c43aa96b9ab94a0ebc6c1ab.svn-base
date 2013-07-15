@@ -1,0 +1,58 @@
+﻿# ------------------------------------------------------------------------------
+# 创建虚拟机向导 脚本
+# ------------------------------------------------------------------------------
+# 由 Virtual Machine Manager 在 2013年6月5日 2:06:27 上生成的脚本
+# 
+# 有关 cmdlet 用法的其他帮助，请键入 get-help <cmdlet 名称>
+# ------------------------------------------------------------------------------
+
+New-SCVirtualScsiAdapter -VMMServer localhost -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -AdapterID 7 -ShareVirtualScsiAdapter $false -ScsiControllerType DefaultTypeNoType 
+
+
+New-SCVirtualScsiAdapter -VMMServer localhost -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -AdapterID 7 -ShareVirtualScsiAdapter $false -ScsiControllerType DefaultTypeNoType 
+
+
+New-SCVirtualDVDDrive -VMMServer localhost -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -Bus 1 -LUN 0 
+
+
+New-SCVirtualNetworkAdapter -VMMServer localhost -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -MACAddressType Dynamic -Synthetic -EnableVMNetworkOptimization $false 
+
+
+Set-SCVirtualCOMPort -NoAttach -VMMServer localhost -GuestPort 1 -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b 
+
+
+Set-SCVirtualCOMPort -NoAttach -VMMServer localhost -GuestPort 2 -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b 
+
+
+Set-SCVirtualFloppyDrive -RunAsynchronously -VMMServer localhost -NoMedia -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b 
+
+$CPUType = Get-SCCPUType -VMMServer localhost | where {$_.Name -eq "3.60 GHz Xeon (2 MB L2 cache)"}
+
+
+New-SCHardwareProfile -VMMServer localhost -CPUType $CPUType -Name "配置文件1f5ef84f-7de9-47a3-ae2b-f6023fa66de7" -Description "用于创建虚拟机/模板的临时硬件配置" -CPUCount 1 -MemoryMB 512 -DynamicMemoryEnabled $false -MemoryWeight 5000 -VirtualVideoAdapterEnabled $false -CPUExpectedUtilizationPercent 20 -DiskIops 0 -CPUMaximumPercent 100 -CPUReserve 0 -NumaIsolationRequired $false -NetworkUtilizationMbps 0 -CPURelativeWeight 100 -HighlyAvailable $false -DRProtectionRequired $false -NumLock $false -BootOrder "CD", "IdeHardDrive", "PxeBoot", "Floppy" -CPULimitFunctionality $false -CPULimitForMigration $false -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b 
+
+
+
+New-SCVirtualDiskDrive -VMMServer localhost -IDE -Bus 0 -LUN 0 -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -VirtualHardDiskSizeMB 40960 -Dynamic -Filename "dddd_disk_1" -VolumeType BootAndSystem 
+
+
+New-SCVirtualDiskDrive -VMMServer localhost -IDE -Bus 0 -LUN 1 -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -VirtualHardDiskSizeMB 40960 -Dynamic -Filename "dddd_disk_2" -VolumeType None 
+
+
+New-SCVirtualDiskDrive -VMMServer localhost -IDE -Bus 1 -LUN 1 -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -VirtualHardDiskSizeMB 40960 -Dynamic -Filename "dddd_disk_3" -VolumeType None 
+
+$HardwareProfile = Get-SCHardwareProfile -VMMServer localhost | where {$_.Name -eq "配置文件1f5ef84f-7de9-47a3-ae2b-f6023fa66de7"}
+
+New-SCVMTemplate -Name "Temporary Templatea53321d9-ab4b-4808-8868-7d6ef807866f" -HardwareProfile $HardwareProfile -JobGroup 8da819cc-e198-41de-9db4-569482b22c0b -NoCustomization 
+
+
+
+$template = Get-SCVMTemplate -All | where { $_.Name -eq "Temporary Templatea53321d9-ab4b-4808-8868-7d6ef807866f" }
+$virtualMachineConfiguration = New-SCVMConfiguration -VMTemplate $template -Name "dddd"
+Write-Output $virtualMachineConfiguration
+$vmHost = Get-SCVMHost -ID "da06f379-b126-40ad-9957-2f183a64b10d"
+Set-SCVMConfiguration -VMConfiguration $virtualMachineConfiguration -VMHost $vmHost
+Update-SCVMConfiguration -VMConfiguration $virtualMachineConfiguration
+Update-SCVMConfiguration -VMConfiguration $virtualMachineConfiguration
+$operatingSystem = Get-SCOperatingSystem | where { $_.Name -eq "64-bit edition of Windows Server 2012 Standard" }
+New-SCVirtualMachine -Name "dddd" -VMConfiguration $virtualMachineConfiguration -Description "" -BlockDynamicOptimization $false -JobGroup "8da819cc-e198-41de-9db4-569482b22c0b" -ReturnImmediately -StartAction "NeverAutoTurnOnVM" -StopAction "SaveVM" -OperatingSystem $operatingSystem

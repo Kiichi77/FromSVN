@@ -1,0 +1,9 @@
+{                                                      
+	"total":15,                                                      
+	"rows":[                                                          
+		{"id":"001","rolename":"管理员","description":"管理员"},         
+		{"id":"002","rolename":"采购人员","description":"采购人员"},         
+		{"id":"003","rolename":"销售人员","description":"销售人员"},         
+		{"id":"004","rolename":"审核人员","description":"审核人员"}       
+	]                                                          
+} 

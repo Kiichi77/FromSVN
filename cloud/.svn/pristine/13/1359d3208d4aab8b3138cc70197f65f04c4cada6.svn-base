@@ -1,0 +1,81 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="contractTemplates" extends="global" namespace="/contractTemplates">
+		<action name="contractTemplates"
+			class="cn.com.kxcomm.contractmanage.web.action.ContractTemplatesAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="contractTemplatesDoc"
+			class="cn.com.kxcomm.contractmanage.web.action.ContractTemplatesDocAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="contractDocType"
+			class="cn.com.kxcomm.contractmanage.web.action.ContractDocTypeAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="contract"
+			class="cn.com.kxcomm.contractmanage.web.action.ContractAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="contractDoc"
+			class="cn.com.kxcomm.contractmanage.web.action.ContractDocAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="contractPayment"
+			class="cn.com.kxcomm.contractmanage.web.action.ContractPaymentAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="arrivalProved"
+			class="cn.com.kxcomm.contractmanage.web.action.ArrivalProvedAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="contractTemporary"
+			class="cn.com.kxcomm.contractmanage.web.action.ContractTemporaryAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,11 @@
+{                                                      
+	"total":15,                                                      
+	"rows":[                                                          
+		{"id":"001","sellOrderName":"询价一","sellOrderNumber":"KX1001","inquiryer":"张三","startTime":"2013-01-21 12:22:29","endTime":"2013-01-21 12:22:29","state":"已审核"},         
+		{"id":"002","sellOrderName":"询价二","sellOrderNumber":"KX3003","inquiryer":"张三","startTime":"2013-01-21 12:22:29","endTime":"2013-01-21 12:22:29","state":"已审核"},         
+		{"id":"003","sellOrderName":"","sellOrderNumber":"KX3004","inquiryer":"张三","startTime":"2013-01-21 12:22:29","endTime":"2013-01-21 12:22:29","state":"未审核"},         
+		{"id":"004","sellOrderName":"","sellOrderNumber":"KX3005","inquiryer":"张三","startTime":"2013-01-21 12:22:29","endTime":"2013-01-21 12:22:29","state":"未审核"},         
+		{"id":"005","sellOrderName":"","sellOrderNumber":"KX3007","inquiryer":"里斯","startTime":"2013-01-21 12:22:29","endTime":"2013-01-21 12:22:29","state":"未审核"},         
+		{"id":"006","sellOrderName":"","sellOrderNumber":"KX3008","inquiryer":"里斯","startTime":"2013-01-21 12:22:29","endTime":"2013-01-21 12:22:29","state":"未审核"}       
+	]                                                          
+} 

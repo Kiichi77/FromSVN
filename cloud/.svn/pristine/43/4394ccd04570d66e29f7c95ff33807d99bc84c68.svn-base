@@ -1,0 +1,10 @@
+{                                                      
+	"total":15,                                                      
+	"rows":[                                                          
+		{"id":"002","buyPrice":"CPU","sellPrice":"500","grossProfit":"DELL","netProfit":"1000","startTime":"2013-01-21 12:23:33"},         
+		{"id":"003","buyPrice":"内存","sellPrice":"505","grossProfit":"DELL","netProfit":"100","startTime":"2013-01-20 12:23:33"},         
+		{"id":"004","buyPrice":"显卡","sellPrice":"530","grossProfit":"DELL","netProfit":"1004","startTime":"2013-01-22 12:23:33"},         
+		{"id":"005","buyPrice":"显示器","sellPrice":"5000","grossProfit":"DELL","netProfit":"200","startTime":"2013-01-22 12:23:33"},         
+		{"id":"006","buyPrice":"驱动","sellPrice":"50","grossProfit":"DELL","netProfit":"1000","startTime":"2013-01-22 12:23:33"}        
+	]                                                          
+} 

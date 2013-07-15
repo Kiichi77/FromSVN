@@ -1,0 +1,12 @@
+#SESSION
+sessionVersion=sessionVersion
+#
+templatepath=docTemp
+#
+uploadpath=upload
+
+office_home=D://openOffice
+
+
+#DEV/PUB
+sqlReadMode=PUB

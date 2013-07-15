@@ -1,0 +1,18 @@
+{                                                      
+	"total":15,                                                      
+	"rows":[                                                          
+		{"id":"001","configName":"CPU","buyPrice":"100","number":"10","Supplier":"DELL","totalPrice":"1000"},         
+		{"id":"002","configName":"硬盘","buyPrice":"300","number":"21","Supplier":"DELL","totalPrice":"6300"},         
+		{"id":"003","configName":"驱动","buyPrice":"300","number":"22","Supplier":"DELL","totalPrice":"6600"},         
+		{"id":"004","configName":"内存","buyPrice":"300","number":"33","Supplier":"DELL","totalPrice":"9900"},         
+		{"id":"005","configName":"显卡","buyPrice":"300","number":"32","Supplier":"DELL","totalPrice":"9600"},         
+		{"id":"006","configName":"RMB","buyPrice":"300","number":"32","Supplier":"DELL","totalPrice":"9600"},
+		{"id":"001","configName":"CPU","buyPrice":"100","number":"10","Supplier":"DELL","totalPrice":"1000"},         
+		{"id":"002","configName":"硬盘","buyPrice":"300","number":"21","Supplier":"DELL","totalPrice":"6300"},         
+		{"id":"003","configName":"驱动","buyPrice":"300","number":"22","Supplier":"DELL","totalPrice":"6600"},         
+		{"id":"004","configName":"内存","buyPrice":"300","number":"33","Supplier":"DELL","totalPrice":"9900"},         
+		{"id":"005","configName":"显卡","buyPrice":"300","number":"32","Supplier":"DELL","totalPrice":"9600"},         
+		{"id":"006","configName":"RMB","buyPrice":"300","number":"32","Supplier":"DELL","totalPrice":"9600"},
+		{"id":"006","configName":"总价","buyPrice":"30200","number":"48","Supplier":"所有","totalPrice":"4889900"}
+	]                                                          
+}       

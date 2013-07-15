@@ -1,0 +1,8 @@
+{"total":6,"rows":[
+	{"flavorId":"1","flavorName":"测试模板","cpus":2,"memory":1024,"primaryDisk":100,"tempDisk":0},
+	{"flavorId":"2","flavorName":"测试模板","cpus":2,"memory":2048,"primaryDisk":100,"tempDisk":4},
+	{"flavorId":"3","flavorName":"测试模板","cpus":4,"memory":1024,"primaryDisk":100,"tempDisk":0},
+	{"flavorId":"4","flavorName":"测试模板","cpus":2,"memory":2048,"primaryDisk":100,"tempDisk":0},
+	{"flavorId":"5","flavorName":"测试模板","cpus":6,"memory":8192,"primaryDisk":100,"tempDisk":0},
+	{"flavorId":"6","flavorName":"测试模板","cpus":8,"memory":1024,"primaryDisk":100,"tempDisk":0}
+]}

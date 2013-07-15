@@ -1,0 +1,71 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="server" extends="global" namespace="/server">
+		<action name="server"
+			class="cn.com.kxcomm.woyun.web.action.servers.ServersAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="securityGroup"
+			class="cn.com.kxcomm.woyun.web.action.servers.SecurityGroupAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="flavors"
+			class="cn.com.kxcomm.woyun.web.action.servers.FlavorsAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="images"
+			class="cn.com.kxcomm.woyun.web.action.servers.ImagesAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="quotaSet"
+			class="cn.com.kxcomm.woyun.web.action.servers.QuotaAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="service"
+			class="cn.com.kxcomm.woyun.web.action.system.ServicesAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<action name="floatIp"
+			class="cn.com.kxcomm.woyun.web.action.servers.FloatIpAction">
+			<result type="json">
+				<param name="root">result</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,5 @@
+{"total":3,"rows":[
+	{"instanName":"<a href='#' onclick='showWindow();'>卷-01</a>","instanAdress":"XXXX","instanSize":"310GB","status":"creating","work":"-","dosometihe":"<a href='#' onclick='updateInstanceInfo(1);'>去除挂载</a>"},
+	{"instanName":"卷-DL-02","instanAdress":"XXXX","instanSize":"300GB","status":"creating","work":"-","dosometihe":"<a href='#' onclick='updateInstanceInfo('K9-DL-01');'>挂载到虚拟机</a>"},
+	{"instanName":"卷-SN-011","instanAdress":"XXXX","instanSize":"312GB","status":"creating","work":"-","dosometihe":"<a href='#' onclick='updateInstanceInfo('RP-SN-01');'>挂载到虚拟机</a>"}
+]}

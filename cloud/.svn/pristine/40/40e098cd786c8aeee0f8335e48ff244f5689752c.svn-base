@@ -1,0 +1,13 @@
+body { font-family:Verdana; font-size:14px; margin:0;}
+
+#container {margin:0 auto; width:100%;}
+#header {
+	height: 100px;
+	background: #D5EDB3;
+	margin-bottom: 5px;
+	border: 10px;
+}
+#menu { height:30px; background:#99CC66; margin-bottom:5px;}
+#mainContent { height:600px; margin-bottom:5px;}
+#sidebar { float:left; width:200px; height:100%; background:#cf9;}
+#content { margin-left:205px !important; margin-left:202px; height:100%;}

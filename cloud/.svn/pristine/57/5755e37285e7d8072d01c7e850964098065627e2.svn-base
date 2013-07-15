@@ -1,0 +1,18 @@
+{                                                      
+	"total":10,                                                      
+	"rows":[
+		{"id":"10","role":"售后人员","name":"刘亮","description":"接收到订货单A的收货请求","createTime":"2013-01-03 13:40"},
+		{"id":"9","role":"财务人员","name":"李四","description":"接收到订货单A的订购合同，进行付款","createTime":"2013-01-03 13:40"},
+		{"id":"8","role":"采购人员","name":"张三","description":"根据订单A，与A厂家签订订购合同,创建订货单A","createTime":"2013-01-03 13:40"},
+		{"id":"7","role":"采购人员","name":"张三","description":"对订单A完成询价，提交到赵琪审核","createTime":"2013-01-03 13:40"},
+		{"id":"6","role":"销售人员","name":"李静","description":"创建了订单A","createTime":"2013-01-03 13:40"},
+		{"id":"5","role":"销售人员","name":"李静","description":"创建了广东联通A合同","createTime":"2013-01-03 13:40"},             
+		{"id":"7","role":"审核人员","name":"赵琪","description":"审核了报价表A，结果通过，返回销售-李静跟进","createTime":"2013-01-03 13:40"},
+		{"id":"6","role":"销售人员","name":"李静","description":"创建了报价表A，并提交到赵琪审核","createTime":"2013-01-03 13:40"},
+		{"id":"5","role":"销售人员","name":"李静","description":"创建了机型配置C","createTime":"2013-01-03 13:40"},
+		{"id":"4","role":"销售人员","name":"李静","description":"创建了机型配置B","createTime":"2013-01-03 13:40"},
+		{"id":"3","role":"销售人员","name":"李静","description":"创建了机型配置A","createTime":"2013-01-03 13:40"},
+		{"id":"2","role":"销售人员","name":"张硕明","description":"创建了湖南联通沃云计算项目","createTime":"2013-01-03 13:40"},
+		{"id":"1","role":"销售人员","name":"李静","description":"创建了广东联通沃云计算项目","createTime":"2013-01-04 13:40"}	
+	]                                                          
+}                                                           

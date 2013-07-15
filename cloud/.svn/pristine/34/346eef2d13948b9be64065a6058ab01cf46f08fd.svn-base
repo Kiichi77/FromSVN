@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="blackName" extends="global" namespace="/blackName">
+		<action name="blackName"
+			class="cn.com.kxcomm.ipmi.web.action.serverInfo.BlackNameAction">
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">blackNamePageList.*,msg</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="belong" extends="global" namespace="/belong">
+		<action name="belong"
+			class="cn.com.kxcomm.ipmi.web.action.serverInfo.BelongAction">
+			<result name="success" type="json">
+				<param name="includeProperties">setList.*,belongEntityList.*</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="historyServer" extends="global" namespace="/historyServer">
+		<action name="historyServer"
+			class="cn.com.kxcomm.ipmi.web.action.serverInfo.HistoryServerInfoAction">
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">historyData.*</param>
+			</result>
+		</action>
+	</package>
+	<package name="systemLog" extends="global" namespace="/systemLog">
+		<action name="systemLog"
+			class="cn.com.kxcomm.ipmi.web.action.system.SystemOperLogAction">
+			<result name="success" type="json">
+				<param name="includeProperties">pageEntityList.*</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="alert" extends="global" namespace="/alert">
+		<action name="alert"
+			class="cn.com.kxcomm.ipmi.web.action.serverInfo.AlertAction">
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">alertPageInfo.*,alertServerEntitys.*,msg</param>
+			</result>
+		</action>
+	</package>
+</struts>

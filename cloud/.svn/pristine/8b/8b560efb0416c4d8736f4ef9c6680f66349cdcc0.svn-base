@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="user" extends="global" namespace="/user">
+		<action name="user" class="cn.com.kxcomm.ipmi.web.action.system.UserAction">
+			<result name="list" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">pageList.*</param>
+				<param name="excludeProperties">pageList.result\[\d+\]\.tbRole.tbRightRoles.*,pageList.result\[\d+\]\.tbRole.tbUsers.*,pageList.result\[\d+\]\.tbSystemoperlogs</param>
+			</result>
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">list.*,msg</param>
+				<param name="excludeProperties">list\[\d+\]\.tbRole</param>
+			</result>
+		</action>
+
+	</package>
+	<package name="customer" extends="global" namespace="/customer">
+		<action name="customer" class="cn.com.kxcomm.ipmi.web.action.system.UserAction">
+			<result name="menu" type="json">
+					<param name="excludeNullProperties">true</param>
+					<param name="ignoreHierarchy">false</param>
+					<param name="includeProperties">listMenu.*,adminname,adminrole</param>
+					<param name="excludeProperties">listMenu.mode</param>
+				</result>
+		</action>
+	</package>
+	<package name="right" extends="global" namespace="/right">
+		<action name="right" class="cn.com.kxcomm.ipmi.web.action.system.RightAction">
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+	<package name="role" extends="global" namespace="/role">
+		<action name="role" class="cn.com.kxcomm.ipmi.web.action.system.RoleAction"
+			method="findAll">
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">list\[\d+\]\.rolename,list\[\d+\]\.id,msg</param>
+			</result>
+			<result name="list" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">pageList.*</param>
+				<param name="excludeProperties">pageList.result\[\d+\]\.tbRight.*,pageList.result\[\d+\]\.tbRightRoles\[\d+\]\tbRole,pageList.result\[\d+\]\.tbRightRoles\[\d+\]\tbRight,pageList.result\[\d+\]\.tbUsers.*</param>
+			</result>
+			<result name="menu" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">root.*</param>
+				<param name="excludeProperties">model.*</param>
+			</result>
+		</action>
+	</package>
+</struts>

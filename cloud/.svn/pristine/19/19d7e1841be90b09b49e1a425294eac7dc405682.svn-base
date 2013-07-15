@@ -1,0 +1,8 @@
+{"total":6,"rows":[
+	{"instanName":"ICMP","cinstanAdress":"3389","dinstanAdress":"3402","comefrom":"0.0.0.0/0(CIDP)","dosometihe":"<a href='#' onclick='deletePolice(1);'>删除规则</a>"},
+	{"instanName":"TCP","cinstanAdress":"21","dinstanAdress":"66","comefrom":"0.0.0.0/0(CIDP)","dosometihe":"<a href='#' onclick='deletePolice(1);'>删除规则</a>"},
+	{"instanName":"ICMP","cinstanAdress":"3480","dinstanAdress":"3412","comefrom":"0.0.0.0/0(CIDP)","dosometihe":"<a href='#' onclick='deletePolice(1);'>删除规则</a>"},
+	{"instanName":"ICMP","cinstanAdress":"3480","dinstanAdress":"3422","comefrom":"0.0.0.0/0(CIDP)","dosometihe":"<a href='#' onclick='deletePolice(1);'>删除规则</a>"},
+	{"instanName":"TCP","cinstanAdress":"22","dinstanAdress":"67","comefrom":"0.0.0.0/0(CIDP)","dosometihe":"<a href='#' onclick='deletePolice(1);'>删除规则</a>"},
+	{"instanName":"TCP","cinstanAdress":"23","dinstanAdress":"68","comefrom":"0.0.0.0/0(CIDP)","dosometihe":"<a href='#' onclick='deletePolice(1);'>删除规则</a>"}
+]}

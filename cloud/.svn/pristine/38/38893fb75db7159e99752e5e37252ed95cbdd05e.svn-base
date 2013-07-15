@@ -1,0 +1,8 @@
+{                                                      
+	"total":10,                                                      
+	"rows":[                                                          
+		{"contractPaymentId":1,"projectName":"湖南长沙联通项目","contractNo":"1001","contractName":"合同1","buyerCompany":"大众传媒有限公司","sellerCompany":"北京市康讯通讯设备有限公司","contractMoney":1000.0,"sellerName":"张建华","contractStatus":2,"receiveMoney":700.0,"unReceiveMoney":300.0},    
+		{"contractPaymentId":1,"projectName":"湖南长沙联通项目","contractNo":"1001","contractName":"合同1","buyerCompany":"大众传媒有限公司","sellerCompany":"北京市康讯通讯设备有限公司","contractMoney":1000.0,"sellerName":"张建华","contractStatus":2,"receiveMoney":700.0,"unReceiveMoney":300.0}
+
+	]                                                          
+} 

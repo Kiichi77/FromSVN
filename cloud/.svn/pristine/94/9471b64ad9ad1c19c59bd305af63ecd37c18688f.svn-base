@@ -1,0 +1,21 @@
+10.10.128.11	控制节点
+user:openstack
+passwd: k1s25j4w3
+
+10.10.128.12	计算节点
+user:openstack
+passwd: k1s25j4w3
+
+10.10.128.13	计算节点
+user:openstack
+passwd: k1s25j4w3
+
+公网:
+http://122.13.0.18:8080/
+user:admin
+passwd:qzygwcS_1
+
+
+IDRAC:
+10.10.0.31
+test/123456

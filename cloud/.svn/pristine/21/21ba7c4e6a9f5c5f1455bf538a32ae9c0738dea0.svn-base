@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="modeAudit" name="模板审核" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="managerAudit" name="总经理审核"></userTask>
+    <userTask id="saleAudit" name="销售审核"></userTask>
+    <userTask id="createMode" name="模板创建"></userTask>
+    <sequenceFlow id="flow1" name="to User Task" sourceRef="startevent1" targetRef="createMode"></sequenceFlow>
+    <sequenceFlow id="flow3" name="to User Task" sourceRef="createMode" targetRef="saleAudit"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow5" name="to End" sourceRef="managerAudit" targetRef="endevent1"></sequenceFlow>
+    <userTask id="financialAudit " name="财务审核"></userTask>
+    <sequenceFlow id="flow6" name="to User Task" sourceRef="saleAudit" targetRef="financialAudit "></sequenceFlow>
+    <sequenceFlow id="flow7" name="to 总经理审核" sourceRef="financialAudit " targetRef="managerAudit"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_modeAudit">
+    <bpmndi:BPMNPlane bpmnElement="modeAudit" id="BPMNPlane_modeAudit">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="203.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="660.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="createMode" id="BPMNShape_createMode">
+        <omgdc:Bounds height="55.0" width="105.0" x="120.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="managerAudit" id="BPMNShape_managerAudit">
+        <omgdc:Bounds height="55.0" width="105.0" x="532.0" y="28.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="saleAudit" id="BPMNShape_saleAudit">
+        <omgdc:Bounds height="55.0" width="105.0" x="290.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="financialAudit " id="BPMNShape_financialAudit ">
+        <omgdc:Bounds height="55.0" width="105.0" x="404.0" y="149.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="67.0" y="203.0"></omgdi:waypoint>
+        <omgdi:waypoint x="172.0" y="145.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="172.0" y="90.0"></omgdi:waypoint>
+        <omgdi:waypoint x="342.0" y="75.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="584.0" y="83.0"></omgdi:waypoint>
+        <omgdi:waypoint x="677.0" y="190.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="342.0" y="75.0"></omgdi:waypoint>
+        <omgdi:waypoint x="456.0" y="149.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="456.0" y="149.0"></omgdi:waypoint>
+        <omgdi:waypoint x="584.0" y="83.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

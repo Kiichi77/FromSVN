@@ -1,0 +1,19 @@
+{                                                      
+	"total":15,                                                      
+	"rows":[                                                          
+		{"id":"002","projectName":"项目一","sellOrders":"KX100291","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-21 12:23:33","state":"已付款","isupcontract":"是","isarrival":"未到货","factory":"DELL"},         
+		{"id":"003","projectName":"项目一","sellOrders":"KX100292","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-20 12:23:33","state":"已付款","isupcontract":"是","isarrival":"未到货","factory":"HP"},         
+		{"id":"004","projectName":"项目一","sellOrders":"KX100293","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"已付款","isupcontract":"是","isarrival":"未到货","factory":"IBM"},         
+		{"id":"005","projectName":"项目一","sellOrders":"KX100294","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"已付款","isupcontract":"是","isarrival":"未到货","factory":"华为"},         
+		{"id":"006","projectName":"项目二","sellOrders":"KX100295","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"未付款","isupcontract":"是","isarrival":"未到货","factory":"DELL"},          
+		{"id":"007","projectName":"项目二","sellOrders":"KX100296","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"未付款","isupcontract":"是","isarrival":"未到货","factory":"HP"},          
+		{"id":"008","projectName":"项目二","sellOrders":"KX100297","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"未付款","isupcontract":"否","isarrival":"未到货","factory":"IBM"},          
+		{"id":"009","projectName":"项目二","sellOrders":"KX100298","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"未付款","isupcontract":"否","isarrival":"未到货","factory":"HW"},          
+		{"id":"010","projectName":"项目二","sellOrders":"KX100299","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"待收货","isupcontract":"否","isarrival":"未到货","factory":"联想"},
+		{"id":"011","projectName":"项目二","sellOrders":"KX100221","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"待收货","isupcontract":"否","isarrival":"未到货","factory":"宏基"},         
+		{"id":"012","projectName":"项目三","sellOrders":"KX100231","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"待收货","isupcontract":"否","isarrival":"未到货","factory":"DELL"},         
+		{"id":"013","projectName":"项目三","sellOrders":"KX100251","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"已收货","isupcontract":"是","isarrival":"已到货","factory":"HP"},         
+		{"id":"014","projectName":"项目三","sellOrders":"KX100241","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"已收货","isupcontract":"是","isarrival":"已到货","factory":"IBM"},         
+		{"id":"015","projectName":"项目三","sellOrders":"KX100261","OrdersNumber":"1001111","OrdersName":"帐下三","Orderser":"王小四","startTime":"2013-01-22 12:23:33","state":"已收货","isupcontract":"是","isarrival":"已到货","factory":"华为"}         
+	]                                                          
+}              

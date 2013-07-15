@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="shouhou" name="售后流程" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <userTask id="beginTest" name="上传到货证明"></userTask>
+    <userTask id="applyTheInvoice " name="销售申请发票"></userTask>
+    <userTask id="caiwushenhe" name="财务审核"></userTask>
+    <userTask id="xiaoshoushoudaohuokuan" name="销售收到货款"></userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="beginTest"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="beginTest" targetRef="applyTheInvoice "></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="applyTheInvoice " targetRef="caiwushenhe"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="caiwushenhe" targetRef="xiaoshoushoudaohuokuan"></sequenceFlow>
+    <userTask id="shangchuanchuyanzhengming" name="上传初验证明"></userTask>
+    <userTask id="xiaoshouchuyanshoukuan" name="销售收初验款"></userTask>
+    <userTask id="shangchuanzhongyanzhengming" name="上传终验证明"></userTask>
+    <userTask id="xiaoshoushouzhongyankuan" name="销售收终验款"></userTask>
+    <sequenceFlow id="flow6" sourceRef="shangchuanchuyanzhengming" targetRef="xiaoshouchuyanshoukuan"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="shangchuanzhongyanzhengming" targetRef="xiaoshoushouzhongyankuan"></sequenceFlow>
+    <userTask id="querenshoudaohuokuan" name="确认收到货款"></userTask>
+    <sequenceFlow id="flow10" sourceRef="xiaoshoushoudaohuokuan" targetRef="querenshoudaohuokuan"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="querenshoudaohuokuan" targetRef="shangchuanchuyanzhengming"></sequenceFlow>
+    <userTask id="quedingshouzhongyankuan" name="确定收终验款"></userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow12" sourceRef="xiaoshoushouzhongyankuan" targetRef="quedingshouzhongyankuan"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="quedingshouzhongyankuan" targetRef="endevent1"></sequenceFlow>
+    <userTask id="querenshouchuyankuan" name="确认收初验款"></userTask>
+    <sequenceFlow id="flow14" sourceRef="xiaoshouchuyanshoukuan" targetRef="querenshouchuyankuan"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="querenshouchuyankuan" targetRef="shangchuanzhongyanzhengming"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_shouhou">
+    <bpmndi:BPMNPlane bpmnElement="shouhou" id="BPMNPlane_shouhou">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="575.0" y="406.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="beginTest" id="BPMNShape_beginTest">
+        <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="applyTheInvoice " id="BPMNShape_applyTheInvoice ">
+        <omgdc:Bounds height="55.0" width="105.0" x="270.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="caiwushenhe" id="BPMNShape_caiwushenhe">
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="xiaoshoushoudaohuokuan" id="BPMNShape_xiaoshoushoudaohuokuan">
+        <omgdc:Bounds height="55.0" width="105.0" x="540.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shangchuanchuyanzhengming" id="BPMNShape_shangchuanchuyanzhengming">
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="xiaoshouchuyanshoukuan" id="BPMNShape_xiaoshouchuyanshoukuan">
+        <omgdc:Bounds height="55.0" width="105.0" x="275.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shangchuanzhongyanzhengming" id="BPMNShape_shangchuanzhongyanzhengming">
+        <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="396.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="xiaoshoushouzhongyankuan" id="BPMNShape_xiaoshoushouzhongyankuan">
+        <omgdc:Bounds height="55.0" width="105.0" x="270.0" y="396.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="querenshoudaohuokuan" id="BPMNShape_querenshoudaohuokuan">
+        <omgdc:Bounds height="55.0" width="105.0" x="540.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="querenshouchuyankuan" id="BPMNShape_querenshouchuyankuan">
+        <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="quedingshouzhongyankuan" id="BPMNShape_quedingshouzhongyankuan">
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="396.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="95.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="140.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="245.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="375.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="515.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="410.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="245.0" y="423.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="423.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="592.0" y="265.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="540.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="515.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="375.0" y="423.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="423.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="515.0" y="423.0"></omgdi:waypoint>
+        <omgdi:waypoint x="575.0" y="423.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="275.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="245.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="192.0" y="355.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="396.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

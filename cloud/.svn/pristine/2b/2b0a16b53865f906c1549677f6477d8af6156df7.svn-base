@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="cn.com.kxcomm.entity.PowerShellEntity">
+	<resultMap id="DomainResultMap" class="cn.com.kxcomm.entity.PowerShellEntity">
+		<result column="ID" property="id" jdbcType="BIGINT" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
+		<result column="powerShell_name" property="powerShellName" jdbcType="VARCHAR" />
+		<result column="shell_type_id" property="shellTypeId" jdbcType="BIGINT" />
+		<result column="variable_id" property="variableId" jdbcType="BIGINT" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="queryAll" resultMap="DomainResultMap">
+		select id,file_name,powerShell_name,shell_type_id,variable_id,remark from tb_powershell
+   </select>
+  
+</sqlMap>

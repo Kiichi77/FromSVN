@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="serviceinfo" extends="global" namespace="/serviceinfo">
+		<action name="serviceinfo" class="cn.com.kxcomm.ipmi.web.action.serverInfo.ServerAction">
+<!-- 			<result name="menu" type="json"> -->
+<!-- 				<param name="excludeNullProperties">true</param> -->
+<!-- 				<param name="ignoreHierarchy">false</param> -->
+<!-- 			</result> -->
+			<result name="list" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">pageList.*</param>
+			    <param name="excludeProperties">pageList.result\[\d+\]\.tbServerBelongs.*,pageList.result\[\d+\]\.tbPolicySevers.*,result\[\d+\]\.tbHistoryServerInfos.*</param> 
+<!-- 				<param name="excludeProperties">pageList.result\[\d+\]\.tbRole.tbRightRoles.*,pageList.result\[\d+\]\.tbRole.tbUsers.*</param> -->
+			</result>
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">list.*,model.*,sellist.*,msg</param>
+				<param name="excludeProperties">pageList.result\[\d+\]\.tbServerBelongs.*,pageList.result\[\d+\]\.tbPolicySevers.*,result\[\d+\]\.tbHistoryServerInfos.*</param> 
+			</result>
+			<result name="result" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">resultList.*</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="systemeventlog" extends="global" namespace="/systemeventlog">
+		<action name="systemeventlog" class="cn.com.kxcomm.ipmi.web.action.serverInfo.SystemEventLogAction">
+			<result name="list" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">pageList.*</param>
+			</result>
+		</action>
+	</package>
+</struts>

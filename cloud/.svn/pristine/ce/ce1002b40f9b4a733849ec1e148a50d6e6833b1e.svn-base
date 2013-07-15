@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="cn.com.kxcomm.entity.UserEntity">
+	<resultMap id="UserResultMap" class="cn.com.kxcomm.entity.UserEntity">
+		<result column="ID" property="id" jdbcType="BIGINT" />
+		<result column="tb_dom_user_id" property="domUserId" jdbcType="BIGINT" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="account" property="account" jdbcType="VARCHAR" />
+		<result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="registerTime" property="register_time" jdbcType="timestamp" />
+		<result column="unRegisterTime" property="unregister_time" jdbcType="timestamp" />
+	</resultMap>
+
+	<select id="queryAll" resultMap="UserResultMap">
+		select id,user_name,password,account,email from tb_dom_user
+   </select>
+  
+</sqlMap>

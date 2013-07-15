@@ -1,0 +1,8 @@
+{                                                      
+	"total":3,                                                      
+	"rows":[                                                          
+{"dataId":4,"projectName":"湖南长沙联通项目","contractNo":"9999999900","contractName":"0000000000","buyerCompany":"大众传媒有限公司","sellerCompany":"北京市康讯通讯设备有限公司","money":700.0,"payType":11,"receiveTime":"2013-03-30 00:00:00.0","notes":"货款","status":0,"buyerAccount":"","sellerAccount":"137141516010015676","financialName":"财务","accpetTime":"","contractReceivePayment":2,,"financialId":6},
+{"dataId":4,"projectName":"湖南长沙联通项目","contractNo":"9999999900","contractName":"0000000000","buyerCompany":"大众传媒有限公司","sellerCompany":"北京市康讯通讯设备有限公司","money":700.0,"payType":11,"receiveTime":"2013-03-30 00:00:00.0","notes":"货款","status":0,"buyerAccount":"","sellerAccount":"137141516010015676","financialName":"财务","accpetTime":"","contractReceivePayment":2,,"financialId":6},
+{"dataId":4,"projectName":"湖南长沙联通项目","contractNo":"9999999900","contractName":"0000000000","buyerCompany":"大众传媒有限公司","sellerCompany":"北京市康讯通讯设备有限公司","money":700.0,"payType":11,"receiveTime":"2013-03-30 00:00:00.0","notes":"货款","status":0,"buyerAccount":"","sellerAccount":"137141516010015676","financialName":"财务","accpetTime":"","contractReceivePayment":2,,"financialId":6}     
+	]                                                          
+} 

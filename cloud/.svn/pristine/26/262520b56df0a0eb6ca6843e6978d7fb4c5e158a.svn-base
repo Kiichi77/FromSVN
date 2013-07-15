@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="cn.com.kxcomm.entity.VariableEntity">
+	<resultMap id="VariabeResultMap" class="cn.com.kxcomm.entity.VariableEntity">
+		<result column="ID" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="value" property="value" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="queryAll" resultMap="VariabeResultMap">
+		select id,name,value from tb_variable
+   </select>
+  
+</sqlMap>
